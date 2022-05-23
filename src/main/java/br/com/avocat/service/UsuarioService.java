@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.web.dto.UsuarioContaDto;
+import br.com.avocat.web.dto.LoginDto;
 import br.com.avocat.web.dto.UsuarioDto;
 
 @Service
@@ -23,7 +23,7 @@ public class UsuarioService {
 	@Autowired 
 	ObjectMapper objectMapper;
 	
-	public UsuarioDto salvar(UsuarioContaDto data) {
+	public UsuarioDto salvar(LoginDto data) {
 		
 		var usuario = objectMapper.convertValue(data, Usuario.class);
 		

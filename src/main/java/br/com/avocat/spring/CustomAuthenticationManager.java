@@ -42,7 +42,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
             throw new DisabledException("User account is not active");
         }
         
-        return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(user, null, null);
 	}
 
 	public UserDetails loadUserByUsername(String username) {

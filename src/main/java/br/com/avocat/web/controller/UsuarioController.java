@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.service.UsuarioService;
-import br.com.avocat.web.dto.UsuarioContaDto;
+import br.com.avocat.web.dto.LoginDto;
 import br.com.avocat.web.dto.UsuarioDto;
 
 @RestController
@@ -19,7 +19,7 @@ public class UsuarioController {
 	UsuarioService acessoService;
 	
 	@PostMapping("/nova-conta")
-	public ResponseEntity<UsuarioDto> salvar(@RequestBody final UsuarioContaDto data) {
+	public ResponseEntity<UsuarioDto> salvar(@RequestBody final LoginDto data) {
 		return ResponseEntity.ok(acessoService.salvar(data));
 	}
 }
