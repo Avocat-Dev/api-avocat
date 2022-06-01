@@ -46,11 +46,11 @@ public class AutenticacaoTokenControllerTest {
 	public void setUp() {
 		
 		//@formatter:off
-				given(this.usuarioRepository.findByUsername("dev@dev.com.br"))
-		        	.willReturn(Optional.of(
-		        			new Usuario(1L, "dev@dev.com.br", "$2a$10$ielFeDLFnuavoyASyyfA4.W6L8N2vMLFa5JMF5aPpMw5InBY1.fnK")
-		        			));
-				//@formatter:on
+		given(this.usuarioRepository.findByUsername("dev@dev.com.br"))
+        	.willReturn(Optional.of(
+        			new Usuario(1L, "dev@dev.com.br", "$2a$10$ielFeDLFnuavoyASyyfA4.W6L8N2vMLFa5JMF5aPpMw5InBY1.fnK")
+        			));
+		//@formatter:on
 				
 		//@formatter:off
 		RestAssured.port = this.port;
@@ -63,14 +63,12 @@ public class AutenticacaoTokenControllerTest {
 		JsonPath jsonPath = response.jsonPath();
 		
 		token = jsonPath.get("token");
-		
 		//@formatter:on
 	}
 
 	@Test
 	public void testarEcoHelloComToken_entao200() throws Exception {
 		//@formatter:off
-		
 		LOGGER.info("Token gerado: {}", token);
 		
 		RestAssured.given().log().all()
@@ -80,6 +78,5 @@ public class AutenticacaoTokenControllerTest {
 				.get(CONTEXT_PATH + "/eco")
 			.then().statusCode(200);			
 		//@formatter:on
-
 	}
 }

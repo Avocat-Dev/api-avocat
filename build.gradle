@@ -26,13 +26,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured'
 	testImplementation 'io.rest-assured:json-path'
-    testCompileOnly 'com.h2database:h2:2.0.202'
+	compileOnly 'io.jsonwebtoken:jjwt-api:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	runtimeOnly 'org.postgresql:postgresql'
 	compileOnly 'org.projectlombok:lombok'
-	compileOnly 'io.jsonwebtoken:jjwt-api:0.11.2'
-	compileOnly 'com.h2database:h2:2.0.202'
 }
 
 tasks.named('test') {
