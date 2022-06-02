@@ -1,18 +1,31 @@
 package br.com.avocat.util;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+import java.util.Optional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.ResponseEntity;
 
 public class ControllerUtil {
 
-	public static <T> ResponseEntity<T> resolve(Object result, Class<T> clazz) {
+	public static <T> ResponseEntity<T> resolveNotFound(Optional<T> result) {
 		
-		if(result != null) {
-			var dto = new ObjectMapper().convertValue(result, clazz);		
-			return ResponseEntity.ok(dto);		
+		if(result.isPresent()) {				
+			return ResponseEntity.ok().body(result.get());		
 		} else {
-			return ResponseEntity.internalServerError().body(null);
+			return ResponseEntity.notFound().build();
 		}
+	}
+
+	public static <T> ResponseEntity<T> resolveBadRequest(Optional<T> result) {
+		
+		if(result != null) {				
+			return ResponseEntity.ok().body(result.get());		
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public static <T> ResponseEntity<List<T>> resolveAll(List<T> result) {
+		return ResponseEntity.ok().body(result);		
 	}
 }
