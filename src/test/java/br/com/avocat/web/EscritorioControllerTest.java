@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 import java.net.URI;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,7 @@ public class EscritorioControllerTest {
 		HttpEntity<EscritorioDto> request = new HttpEntity<>(escritorioDto, headers);
 
 		ResponseEntity<EscritorioDto> result = this.restTemplate.postForEntity(uri, request, EscritorioDto.class);
+		
+		assertEquals(result.getStatusCodeValue(), 200);		
 	}
 }
