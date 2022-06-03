@@ -1,13 +1,15 @@
 package br.com.avocat.service;
 
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.persistence.repository.EscritorioRepository;
-import br.com.avocat.web.dto.EscritorioDto;
+import br.com.avocat.web.response.EscritorioResponse;
 
 @Service
 public class EscritorioService {
@@ -15,19 +17,27 @@ public class EscritorioService {
 	@Autowired
 	private EscritorioRepository escritorioRepository;
 
-	@Autowired
-	private ObjectMapper objectMapper;
-	
-	public EscritorioDto save(EscritorioDto escritorio) {
-		var convert = objectMapper.convertValue(escritorio, Escritorio.class);
-		
-		var result = escritorioRepository.save(convert);
-		
-		return objectMapper.convertValue(result, EscritorioDto.class);
+	@Transactional
+	public Optional<EscritorioResponse> save(Escritorio escritorio) {		
+		try {
+			var result = escritorioRepository.save(escritorio);
+			
+			if(result != null)
+				return Optional.of(new EscritorioResponse(result));
+			else
+				return Optional.empty();
+				
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 	}
 
-	public EscritorioDto get(Long id) {
+	public Optional<EscritorioResponse> get(Long id) {
 		var result = escritorioRepository.findById(id);
-		return objectMapper.convertValue(result.get(), EscritorioDto.class);
+		
+		if(result.isPresent())
+			return Optional.of(new EscritorioResponse(result.get()));
+		else 
+			return Optional.empty();
 	}
 }

@@ -1,11 +1,11 @@
 package br.com.avocat.web;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
 import java.net.URI;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ import org.springframework.http.ResponseEntity;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.util.PathUtil;
-import br.com.avocat.web.dto.EscritorioDto;
 import br.com.avocat.web.dto.LoginDto;
+import br.com.avocat.web.response.EscritorioResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -71,15 +71,30 @@ public class EscritorioControllerTest {
 
 		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_ESCRITORIO);
 
-		var escritorioDto = new EscritorioDto(null, "Escritório Teste");
+		var escritorioDto = new EscritorioResponse(null, "Escritório Teste");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
 
-		HttpEntity<EscritorioDto> request = new HttpEntity<>(escritorioDto, headers);
+		HttpEntity<EscritorioResponse> request = new HttpEntity<>(escritorioDto, headers);
 
-		ResponseEntity<EscritorioDto> result = this.restTemplate.postForEntity(uri, request, EscritorioDto.class);
+		ResponseEntity<EscritorioResponse> result = this.restTemplate.postForEntity(uri, request, EscritorioResponse.class);
 		
 		assertEquals(result.getStatusCodeValue(), 200);		
+	}
+	
+	@Test
+	public void buscarEscritorioPorId_entao200() throws Exception {
+		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_ESCRITORIO + "/1");
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<EscritorioResponse> request = new HttpEntity<>(headers);
+
+		ResponseEntity<EscritorioResponse> result = this.restTemplate.getForEntity(uri, EscritorioResponse.class);
+		
+		assertEquals(result.getStatusCodeValue(), 200);
+		assertEquals(result.getBody().getId(), 1L);
 	}
 }

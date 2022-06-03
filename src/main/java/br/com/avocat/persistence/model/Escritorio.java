@@ -1,12 +1,16 @@
 package br.com.avocat.persistence.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,4 +36,8 @@ public class Escritorio extends AbsctractAuditaEntity implements Serializable {
 	
 	@Column(nullable = false)
 	private String nome;
+	
+	@OneToMany
+	@JoinColumn(name = "escritorio_id")
+	private List<Unidade> unidades = new ArrayList<>();
 }

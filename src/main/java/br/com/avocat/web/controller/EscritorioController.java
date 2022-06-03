@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.service.EscritorioService;
 import br.com.avocat.util.ControllerUtil;
-import br.com.avocat.web.dto.EscritorioDto;
+import br.com.avocat.web.response.EscritorioResponse;
 
 @RestController
 @RequestMapping("/v1/escritorios")
@@ -20,14 +21,18 @@ public class EscritorioController {
 	private EscritorioService escritorioService;
 	
 	@PostMapping
-	public ResponseEntity<EscritorioDto> save(@RequestBody EscritorioDto data) {
+	public ResponseEntity<EscritorioResponse> save(@RequestBody Escritorio data) {
 		var result = escritorioService.save(data);		
-		return ControllerUtil.resolve(result, EscritorioDto.class);
+		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping
-	public ResponseEntity<EscritorioDto> get(Long id) {
-		var result = escritorioService.get(id);				
-		return ControllerUtil.resolve(result, EscritorioDto.class);
+	public ResponseEntity<EscritorioResponse> get(Long id) {
+		var result = escritorioService.get(id);
+		
+		if(result.isEmpty())
+			return ControllerUtil.resolveNotFound();
+		
+		return ControllerUtil.resolve(result);
 	}
 }
