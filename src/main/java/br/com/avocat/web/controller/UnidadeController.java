@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.avocat.persistence.model.Unidade;
 import br.com.avocat.service.UnidadeService;
 import br.com.avocat.util.ControllerUtil;
+import br.com.avocat.web.response.UnidadeResponse;
 
 @RestController
 @RequestMapping("/v1/unidades")
@@ -23,20 +24,24 @@ public class UnidadeController {
 	private UnidadeService unidadeService;
 
 	@PostMapping
-	public ResponseEntity<Unidade> save(@RequestBody Unidade data) {
-		var result = unidadeService.save(data);
-		return ControllerUtil.resolveBadRequest(result);
+	public ResponseEntity<UnidadeResponse> save(@RequestBody Unidade data) {
+		var result = unidadeService.save(data);					
+		return ControllerUtil.resolve(result);		
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Unidade> get(@PathVariable("id") final Long id) {
-		var result = unidadeService.get(id);
-		return ControllerUtil.resolveNotFound(result);
+	public ResponseEntity<UnidadeResponse> get(@PathVariable("id") final Long id) {
+		var result = unidadeService.get(id);		
+		
+		if(result.isEmpty())
+			return ControllerUtil.resolveNotFound();
+		
+		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Unidade>> all() {
-		var result = unidadeService.all();
+	public ResponseEntity<List<UnidadeResponse>> all() {
+		var result = unidadeService.all();						
 		return ControllerUtil.resolveAll(result);
 	}
 }
