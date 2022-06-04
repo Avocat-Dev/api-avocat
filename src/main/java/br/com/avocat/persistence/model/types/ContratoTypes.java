@@ -15,7 +15,7 @@ public enum ContratoTypes {
     private final int value;
     private final String descricao;
 
-    ModalidadeTypes(Integer value, String descricao) {
+    ContratoTypes(Integer value, String descricao) {
         this.value = value;
         this.descricao = descricao;
     }

@@ -1,12 +1,16 @@
 package br.com.avocat.persistence.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -50,4 +54,12 @@ public class Unidade extends AbsctractAuditaEntity implements Serializable {
 	private String nomeUnidade;
 	private String codigoUnidade;
 	private String logoUnidade;
+	
+	@OneToMany
+	@JoinColumn(name = "unidade_id")
+	private List<Pessoa> pessoas = new ArrayList<>();
+	
+	@OneToMany
+	@JoinColumn(name = "unidade_id")
+	private List<Usuario> usuarios = new ArrayList<>();
 }
