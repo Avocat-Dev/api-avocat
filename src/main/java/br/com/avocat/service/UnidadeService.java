@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.avocat.persistence.model.Unidade;
+import br.com.avocat.persistence.repository.EscritorioRepository;
 import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.web.response.UnidadeResponse;
 
@@ -17,13 +18,21 @@ import br.com.avocat.web.response.UnidadeResponse;
 public class UnidadeService {
 
 	@Autowired
+	private EscritorioRepository escritorioRepository;
+	
+	@Autowired
 	private UnidadeRepository unidadeRepository;
-
+	
 	@Transactional
 	public Optional<UnidadeResponse> save(Unidade unidade) {
 		
 		try {			
 			var result = unidadeRepository.save(unidade);
+
+			var escritorio = escritorioRepository.findById(unidade.getEscritorioId()).get();		
+			escritorio.getUnidades().add(unidade);
+			
+			escritorioRepository.save(escritorio);			
 			
 			if(result != null)
 				return Optional.of(new UnidadeResponse(result));
