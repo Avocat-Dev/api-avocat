@@ -7,19 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.service.UsuarioService;
-import br.com.avocat.web.dto.LoginDto;
-import br.com.avocat.web.dto.UsuarioDto;
+import br.com.avocat.util.ControllerUtil;
+import br.com.avocat.web.response.UsuarioResponse;
 
 @RestController
 @RequestMapping("/v1/usuarios")
 public class UsuarioController {
 
 	@Autowired
-	UsuarioService acessoService;
+	private UsuarioService acessoService;
 	
-	@PostMapping("/nova-conta")
-	public ResponseEntity<UsuarioDto> salvar(@RequestBody final LoginDto data) {
-		return ResponseEntity.ok(acessoService.salvar(data));
+	@PostMapping("/conta")
+	public ResponseEntity<UsuarioResponse> save(@RequestBody final Usuario data) {
+		var result = acessoService.save(data);
+		return ControllerUtil.resolve(result);
 	}
 }

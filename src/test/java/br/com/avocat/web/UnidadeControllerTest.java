@@ -23,7 +23,7 @@ import br.com.avocat.persistence.model.Unidade;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.util.PathUtil;
-import br.com.avocat.web.dto.LoginDto;
+import br.com.avocat.web.request.LoginRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -62,7 +62,7 @@ public class UnidadeControllerTest {
 		
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
-				.body(new LoginDto("dev@dev.com.br", "123"))
+				.body(new LoginRequest("dev@dev.com.br", "123"))
 				.when().post(PathUtil.PATH_AUTH_TOKEN);
 		
 		JsonPath jsonPath = response.jsonPath();
@@ -90,7 +90,7 @@ public class UnidadeControllerTest {
 
 		Unidade unidade = new Unidade();
 		
-		unidade.setEscritorioId(1L);
+		unidade.setEscritorioId(2L);
 		
 		unidade.setCnpj("00000000000001");
 		unidade.setCodigoUnidade("Teste Dev");

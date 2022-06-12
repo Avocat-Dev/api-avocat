@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@SequenceGenerator(name = "escritorio", sequenceName = "escritorio", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "escritorio")
@@ -32,6 +34,16 @@ public class Usuario implements UserDetails {
 	private String username;
 	private String password;
     
+	@OneToOne
+	@JoinColumn(name="usuario_id")
+	private UsuarioDados usuarioDados;
+
+	public Usuario(Long id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

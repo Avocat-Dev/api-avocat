@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.avocat.persistence.model.Usuario;
+import br.com.avocat.persistence.model.UsuarioDados;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -29,17 +30,31 @@ public class UsuarioControllerTest {
 	ObjectMapper objectMapper;
 	
 	@Test
-	public void criarNovaConta_entao200() throws Exception {
+	public void criarNovoUsuario_entao200() throws Exception {
 		//@formatter:off
 		this.mockMvc
 			.perform(
-					post(CONTEXT_PATH + "/nova-conta")
-					.content(this.objectMapper.writeValueAsBytes(new Usuario(null, "dev@dev.com.br", "123")))
+					post(CONTEXT_PATH + "/conta")
+					.content(this.objectMapper.writeValueAsBytes(gerarUsuario()))
 					.contentType(MediaType.APPLICATION_JSON)
 					)
 					.andExpect(status().isOk())
-					.andExpect(jsonPath("$.id").isNotEmpty())
-					.andExpect(jsonPath("$.username").value("dev@dev.com.br"));
+					.andExpect(jsonPath("$.id").isNotEmpty());					
 		//@formatter:on
+	}
+	
+	private Usuario gerarUsuario() {
+		Usuario usuario = new Usuario();		
+		usuario.setPassword("123");
+		usuario.setUsername("dev@dev.com.br");
+		
+		UsuarioDados usuarioDados = new UsuarioDados();		
+		usuarioDados.setCelular("");
+		usuarioDados.setNome("Teste Automatizado");
+		usuarioDados.setEmail("teste@teste.com.br");
+		
+		usuario.setUsuarioDados(usuarioDados);
+		
+		return usuario;
 	}
 }

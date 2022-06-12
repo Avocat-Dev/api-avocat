@@ -22,7 +22,7 @@ import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.util.PathUtil;
-import br.com.avocat.web.dto.LoginDto;
+import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.EscritorioResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -58,7 +58,7 @@ public class EscritorioControllerTest {
 		
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
-				.body(new LoginDto("dev@dev.com.br", "123"))
+				.body(new LoginRequest("dev@dev.com.br", "123"))
 				.when().post(PathUtil.PATH_AUTH_TOKEN);
 		
 		JsonPath jsonPath = response.jsonPath();
@@ -93,8 +93,6 @@ public class EscritorioControllerTest {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
-
-		HttpEntity<EscritorioResponse> request = new HttpEntity<>(headers);
 
 		ResponseEntity<EscritorioResponse> result = this.restTemplate.getForEntity(uri, EscritorioResponse.class);
 		

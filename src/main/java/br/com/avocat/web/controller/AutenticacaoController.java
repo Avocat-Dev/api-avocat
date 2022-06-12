@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.spring.jwt.JwtTokenProvider;
-import br.com.avocat.web.dto.LoginDto;
-import br.com.avocat.web.dto.TokenDto;
+import br.com.avocat.web.request.LoginRequest;
+import br.com.avocat.web.response.TokenResponse;
 
 @RestController
 @RequestMapping("/v1/auth")
@@ -25,7 +25,7 @@ public class AutenticacaoController {
 	JwtTokenProvider jwtTokenProvider;
 	
 	@PostMapping("/token")
-	public ResponseEntity<TokenDto> auth(@RequestBody final LoginDto data) {
+	public ResponseEntity<TokenResponse> auth(@RequestBody final LoginRequest data) {
 		
 		var username = data.getUsername();
 		
@@ -34,7 +34,7 @@ public class AutenticacaoController {
 		
 		var token = jwtTokenProvider.gerarToken(authentication);
 		
-		return ResponseEntity.ok(TokenDto.builder().type("Bearer").token(token).build());
+		return ResponseEntity.ok(TokenResponse.builder().type("Bearer").token(token).build());
 	}
 	
 	@GetMapping("/eco")

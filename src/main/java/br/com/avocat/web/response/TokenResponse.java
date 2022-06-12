@@ -1,4 +1,4 @@
-package br.com.avocat.web.dto;
+package br.com.avocat.web.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TokenDto {
+public class TokenResponse {
 	private String type;
 	private String token;
 }

@@ -1,5 +1,9 @@
 package br.com.avocat.service;
 
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -7,36 +11,42 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.avocat.persistence.model.Usuario;
+import br.com.avocat.persistence.repository.UsuarioDadosRepository;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.web.dto.LoginDto;
-import br.com.avocat.web.dto.UsuarioDto;
+import br.com.avocat.web.response.UsuarioResponse;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private UsuarioDadosRepository usuarioDadosRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired 
 	ObjectMapper objectMapper;
 	
-	public UsuarioDto salvar(LoginDto data) {
-		
-		var usuario = objectMapper.convertValue(data, Usuario.class);
-		
-		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-			
-		Usuario result = null;
-		
+	@SuppressWarnings("unused")
+	@Transactional
+	public Optional<UsuarioResponse> save(Usuario usuario) {
+
 		try {
-			result = usuarioRepository.save(usuario);			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		
-		return objectMapper.convertValue(result, UsuarioDto.class);
+			var result = usuarioRepository.save(usuario);			
+			usuarioDadosRepository.save(result.getUsuarioDados());
+			
+			if(result != null) 
+				return Optional.of(new UsuarioResponse(result));
+			else  
+				return Optional.empty();
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}		
 	}
 }
