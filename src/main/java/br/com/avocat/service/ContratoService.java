@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.avocat.persistence.model.Contrato;
 import br.com.avocat.persistence.repository.ContratoRepository;
+import br.com.avocat.persistence.repository.PessoaRepository;
 import br.com.avocat.web.response.ContratoResponse;
 
 @Service
@@ -19,11 +20,19 @@ public class ContratoService {
 	@Autowired
 	private ContratoRepository contratoRepository;
 
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
 	@Transactional
 	public Optional<ContratoResponse> save(Contrato contrato) {
 		
 		try {			
 			var result = contratoRepository.save(contrato);
+			
+			var pessoa = pessoaRepository.findById(contrato.getPessoaId()).get();
+			pessoa.getContratos().add(contrato);
+			
+			pessoaRepository.save(pessoa);
 			
 			if(result != null)
 				return Optional.of(new ContratoResponse(result));

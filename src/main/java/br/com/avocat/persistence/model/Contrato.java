@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.avocat.persistence.model.types.ContratoTypes;
 import lombok.AllArgsConstructor;
@@ -44,4 +45,7 @@ public class Contrato extends AbsctractAuditaEntity implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "modalidade_id", nullable = false)
 	private ContratoTypes modalidadeId;
+	
+	@Transient
+	private Long pessoaId;
 }
