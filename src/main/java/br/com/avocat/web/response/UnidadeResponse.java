@@ -2,8 +2,10 @@ package br.com.avocat.web.response;
 
 import br.com.avocat.persistence.model.Unidade;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Setter
 @Getter
 public class UnidadeResponse {

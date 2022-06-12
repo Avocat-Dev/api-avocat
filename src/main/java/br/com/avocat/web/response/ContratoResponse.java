@@ -9,8 +9,10 @@ import javax.persistence.Enumerated;
 import br.com.avocat.persistence.model.Contrato;
 import br.com.avocat.persistence.model.types.ContratoTypes;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Setter
 @Getter
 public class ContratoResponse {

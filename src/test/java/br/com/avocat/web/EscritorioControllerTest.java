@@ -18,6 +18,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
+import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.util.PathUtil;
@@ -71,7 +72,10 @@ public class EscritorioControllerTest {
 
 		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_ESCRITORIO);
 
-		var escritorioDto = new EscritorioResponse(null, "Escritório Teste");
+		var contrato = new Escritorio();
+		contrato.setNome("Escritório Teste");
+		
+		var escritorioDto = new EscritorioResponse(contrato);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);

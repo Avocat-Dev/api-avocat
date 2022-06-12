@@ -3,8 +3,10 @@ package br.com.avocat.web.response;
 import br.com.avocat.persistence.model.Pessoa;
 import br.com.avocat.persistence.model.types.PessoaTypes;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class PessoaResponse {

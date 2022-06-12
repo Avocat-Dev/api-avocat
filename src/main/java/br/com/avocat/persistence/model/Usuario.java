@@ -3,8 +3,6 @@ package br.com.avocat.persistence.model;
 import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +12,6 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.avocat.persistence.model.types.UsuarioStatusTypes;
-import br.com.avocat.persistence.model.types.UsuarioTypes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,15 +32,6 @@ public class Usuario implements UserDetails {
 	private String username;
 	private String password;
     
-	private String nome;
-	private String celular;
-	
-	@Enumerated(EnumType.ORDINAL)
-	private UsuarioStatusTypes status;
-
-	@Enumerated(EnumType.ORDINAL)
-	private UsuarioTypes tipo;
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
@@ -64,8 +51,5 @@ public class Usuario implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-	public Usuario(Long id2, String username2, String password2) {
-		// TODO Auto-generated constructor stub
 	}
 }
