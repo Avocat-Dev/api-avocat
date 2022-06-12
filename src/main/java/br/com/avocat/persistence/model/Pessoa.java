@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.avocat.persistence.model.types.PessoaTypes;
 import lombok.AllArgsConstructor;
@@ -60,4 +61,7 @@ public class Pessoa extends AbsctractAuditaEntity implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "pessoa_id")
 	private List<Contrato> contratos = new ArrayList<>();
+	
+	@Transient
+	private Long unidadeId;
  }

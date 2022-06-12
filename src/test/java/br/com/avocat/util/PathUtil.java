@@ -9,4 +9,6 @@ public class PathUtil {
 	public final static String PATH_ESCRITORIO = "/v1/escritorios";
 	
 	public final static String PATH_UNIDADE = "/v1/unidades";
+	
+	public final static String PATH_PESSOA = "/v1/pessoas";
 }
