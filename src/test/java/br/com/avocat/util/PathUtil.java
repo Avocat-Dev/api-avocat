@@ -6,5 +6,7 @@ public class PathUtil {
 	
 	public static final String PATH_AUTH_TOKEN = "/v1/auth/token";
 	
-	public final static String PATH_ESCRITORIO = "/v1/escritorios";	
+	public final static String PATH_ESCRITORIO = "/v1/escritorios";
+	
+	public final static String PATH_UNIDADE = "/v1/unidades";
 }
