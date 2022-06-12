@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,4 +63,7 @@ public class Unidade extends AbsctractAuditaEntity implements Serializable {
 	@OneToMany
 	@JoinColumn(name = "unidade_id")
 	private List<Usuario> usuarios = new ArrayList<>();
+	
+	@Transient
+	private Long escritorioId;
 }
