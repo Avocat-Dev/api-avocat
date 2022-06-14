@@ -45,7 +45,7 @@ public class UnidadeControllerTest {
 	@LocalServerPort
 	private int port;
 
-	String token;
+	private String token;
 
 	@BeforeEach
 	public void setUp() {
@@ -84,7 +84,6 @@ public class UnidadeControllerTest {
 					.andExpect(status().isOk());
 		//@formatter:on
 	}
-	
 	
 	private Unidade gerarUnidade() {
 
