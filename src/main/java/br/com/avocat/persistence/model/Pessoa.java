@@ -34,8 +34,8 @@ public class Pessoa extends AbsctractAuditaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "escritorio", sequenceName = "escritorio", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "escritorio")
+	@SequenceGenerator(name = "pessoa", sequenceName = "pessoa", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa")
 	private Long id;
 	
 	@Column(nullable = false, length = 100)

@@ -31,8 +31,8 @@ public class Contrato extends AbsctractAuditaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "escritorio", sequenceName = "escritorio", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "escritorio")
+	@SequenceGenerator(name = "contrato", sequenceName = "contrato", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato")
 	private Long id;
 
 	private String nomeContrato;
