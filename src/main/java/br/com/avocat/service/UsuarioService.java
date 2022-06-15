@@ -13,16 +13,17 @@ import br.com.avocat.persistence.model.UsuarioDados;
 import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.persistence.repository.UsuarioDadosRepository;
 import br.com.avocat.persistence.repository.UsuarioRepository;
+import br.com.avocat.web.response.UsuarioDadosResponse;
 import br.com.avocat.web.response.UsuarioResponse;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
-	private UsuarioRepository credencialRepository;
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	private UsuarioDadosRepository usuarioRepository;
+	private UsuarioDadosRepository usuarioDadosRepository;
 	
 	@Autowired
 	private UnidadeRepository unidadeRepository;
@@ -36,7 +37,7 @@ public class UsuarioService {
 		try {
 			credencial.setPassword(passwordEncoder.encode(credencial.getPassword()));
 		
-			var result = credencialRepository.save(credencial);			
+			var result = usuarioRepository.save(credencial);			
 			
 			if(result != null)
 				return Optional.of(new UsuarioResponse(result));
@@ -47,27 +48,35 @@ public class UsuarioService {
 		
 		return Optional.empty();
 	}
-	
-	/*
+		
 	@Transactional
-	public Optional<UsuarioResponse> save(UsuarioDados usuario) {
+	public Optional<UsuarioDadosResponse> update(UsuarioDados usuarioDados) {
 
-		try {
+		try {			
+			var usuario = usuarioRepository.findById(usuarioDados.getUsuarioId());
 			
-			var update = usuarioRepository.findById(usuario.getId());
-			
-			if(update.isPresent()) {
-				
-				update.get().setNome(usuario.getNome());
-				update.get().setEmail(usuario.getEmail());
-				update.get().setCelular(usuario.getCelular());
+			if(usuario.isPresent()) {
 
-				var usuarioResult = usuarioRepository.save(update.get());			
+				usuarioDados.setUsuario(usuario.get());
 				
-				var unidade = unidadeRepository.findById(usuario.getUnidadeId()).get();				
-				unidade.getUsuarios().add(update.get());
+				UsuarioDados result = new UsuarioDados();
+
+				if(usuarioDados.getId() == null) {
+					usuarioDadosRepository.save(usuarioDados);
+					
+				} else {
+					var update = usuarioDadosRepository.findById(usuarioDados.getId());
+					
+					update.get().setNome(usuarioDados.getNome());
+					update.get().setEmail(usuarioDados.getEmail());
+					update.get().setCelular(usuarioDados.getCelular());
+					
+					result = usuarioDadosRepository.save(update.get());
+					
+					return Optional.of(new UsuarioDadosResponse(result));
+				}
 				
-				return Optional.of(new UsuarioResponse(usuarioResult));
+				return Optional.of(new UsuarioDadosResponse(result));
 			}
 			
 		} catch (Exception e) {
@@ -75,6 +84,5 @@ public class UsuarioService {
 		}
 		
 		return Optional.empty();
-	}
-	*/
+	}	
 }

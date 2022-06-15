@@ -6,8 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +33,11 @@ public class UsuarioDados implements Serializable {
 	private String nome;
 	private String email;
 	private String celular;	
+	
+	@OneToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
+	@Transient
+	private Long usuarioId;
 }
