@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.avocat.persistence.model.Usuario;
-import br.com.avocat.persistence.model.UsuarioDados;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -35,7 +34,7 @@ public class UsuarioControllerTest {
 		this.mockMvc
 			.perform(
 					post(CONTEXT_PATH + "/conta")
-					.content(this.objectMapper.writeValueAsBytes(gerarUsuario()))
+					.content(this.objectMapper.writeValueAsBytes(getUsuario()))
 					.contentType(MediaType.APPLICATION_JSON)
 					)
 					.andExpect(status().isOk())
@@ -43,18 +42,10 @@ public class UsuarioControllerTest {
 		//@formatter:on
 	}
 	
-	private Usuario gerarUsuario() {
-		Usuario usuario = new Usuario();		
+	private Usuario getUsuario() {
+		Usuario usuario = new Usuario();				
 		usuario.setPassword("123");
 		usuario.setUsername("dev@dev.com.br");
-		
-		UsuarioDados usuarioDados = new UsuarioDados();		
-		usuarioDados.setCelular("");
-		usuarioDados.setNome("Teste Automatizado");
-		usuarioDados.setEmail("teste@teste.com.br");
-		
-		usuario.setUsuarioDados(usuarioDados);
-		
 		return usuario;
 	}
 }

@@ -9,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.avocat.persistence.model.Usuario;
-import br.com.avocat.persistence.model.UsuarioInfo;
+import br.com.avocat.persistence.model.UsuarioDados;
 import br.com.avocat.persistence.repository.UnidadeRepository;
-import br.com.avocat.persistence.repository.UsuarioInfoRepository;
+import br.com.avocat.persistence.repository.UsuarioDadosRepository;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.web.response.UsuarioResponse;
 
@@ -22,7 +22,7 @@ public class UsuarioService {
 	private UsuarioRepository credencialRepository;
 	
 	@Autowired
-	private UsuarioInfoRepository usuarioRepository;
+	private UsuarioDadosRepository usuarioRepository;
 	
 	@Autowired
 	private UnidadeRepository unidadeRepository;
@@ -31,7 +31,7 @@ public class UsuarioService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Transactional
-	public Optional<UsuarioResponse> criarConta(Usuario credencial) {
+	public Optional<UsuarioResponse> novaConta(Usuario credencial) {
 
 		try {
 			credencial.setPassword(passwordEncoder.encode(credencial.getPassword()));
@@ -48,8 +48,9 @@ public class UsuarioService {
 		return Optional.empty();
 	}
 	
+	/*
 	@Transactional
-	public Optional<UsuarioResponse> save(UsuarioInfo usuario) {
+	public Optional<UsuarioResponse> save(UsuarioDados usuario) {
 
 		try {
 			
@@ -75,4 +76,5 @@ public class UsuarioService {
 		
 		return Optional.empty();
 	}
+	*/
 }

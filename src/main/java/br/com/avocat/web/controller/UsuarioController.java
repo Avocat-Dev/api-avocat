@@ -20,8 +20,8 @@ public class UsuarioController {
 	private UsuarioService acessoService;
 	
 	@PostMapping("/conta")
-	public ResponseEntity<UsuarioResponse> save(@RequestBody final Usuario data) {
-		var result = acessoService.save(data);
+	public ResponseEntity<UsuarioResponse> novaConta(@RequestBody Usuario data) {
+		var result = acessoService.novaConta(data);
 		return ControllerUtil.resolve(result);
 	}
 }
