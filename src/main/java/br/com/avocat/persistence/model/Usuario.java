@@ -2,6 +2,7 @@ package br.com.avocat.persistence.model;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,11 @@ public class Usuario implements UserDetails {
 	@SequenceGenerator(name = "usuario", sequenceName = "usuario", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario")
 	private Long id;
+	
+	@Column(unique = true, nullable = false)
 	private String username;
+	
+	@Column(nullable = false)
 	private String password;
 
 	public Usuario(Long id, String username, String password) {
