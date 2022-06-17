@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.UsuarioDados;
-import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.persistence.repository.UsuarioDadosRepository;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.web.response.UsuarioDadosResponse;
@@ -24,9 +23,6 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDadosRepository usuarioDadosRepository;
-	
-	@Autowired
-	private UnidadeRepository unidadeRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
