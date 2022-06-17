@@ -62,7 +62,7 @@ public class Unidade extends AbsctractAuditaEntity implements Serializable {
 	
 	@OneToMany
 	@JoinColumn(name = "unidade_id")
-	private List<Usuario> usuarios = new ArrayList<>();
+	private List<UsuarioDados> usuariosDados = new ArrayList<>();
 	
 	@Transient
 	private Long escritorioId;
