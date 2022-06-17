@@ -84,6 +84,7 @@ public class UsuarioControllerTest {
 		usuarioDados.setEmail("dev@dev.com.br");
 		usuarioDados.setCelular("11999880099");
 		usuarioDados.setUsuarioId(1L);
+		usuarioDados.setUnidadeId(2L);
 		usuarioDados.setUsuario(null);
 		return usuarioDados;
 	}
