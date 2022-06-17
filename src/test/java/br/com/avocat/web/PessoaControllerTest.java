@@ -91,7 +91,7 @@ public class PessoaControllerTest {
 
 		Pessoa pessoa = new Pessoa();
 		
-		pessoa.setUnidadeId(3L);
+		pessoa.setUnidadeId(2L);
 		
 		pessoa.setNome("Empreasa Teste S.A");
 		pessoa.setCpfCnpj("00000000000000");

@@ -89,7 +89,7 @@ public class UnidadeControllerTest {
 
 		Unidade unidade = new Unidade();
 		
-		unidade.setEscritorioId(2L);
+		unidade.setEscritorioId(1L);
 		
 		unidade.setCnpj("00000000000001");
 		unidade.setCodigoUnidade("Teste Dev");

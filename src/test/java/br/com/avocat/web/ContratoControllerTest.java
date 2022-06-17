@@ -91,10 +91,10 @@ public class ContratoControllerTest {
 
 		Contrato contrato = new Contrato();
 		
-		contrato.setPessoaId(5L);
-		contrato.setAnotacaoFaturamento("");
-		contrato.setAnotacaoGeral("");
-		contrato.setAnotacaoNota("");
+		contrato.setPessoaId(1L);
+		contrato.setAnotacaoFaturamento("Anotação Faturamento");
+		contrato.setAnotacaoGeral("Anotação Geral");
+		contrato.setAnotacaoNota("Anotação impressa na nota");
 		contrato.setNomeContrato("Contrato Teste Automatizado");
 		contrato.setDataEncerramento(null);
 		contrato.setDataReajuste(null);
