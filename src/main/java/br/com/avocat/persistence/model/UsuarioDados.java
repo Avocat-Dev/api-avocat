@@ -35,9 +35,12 @@ public class UsuarioDados implements Serializable {
 	private String celular;	
 	
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+	@JoinColumn(name = "usuario_id", unique = true)
+	private Usuario usuario;	
 	
 	@Transient
 	private Long usuarioId;
+	
+	@Transient
+	private Long unidadeId;
 }

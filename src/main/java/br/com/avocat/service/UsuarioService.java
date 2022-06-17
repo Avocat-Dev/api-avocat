@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.avocat.persistence.model.Unidade;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.UsuarioDados;
+import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.persistence.repository.UsuarioDadosRepository;
 import br.com.avocat.persistence.repository.UsuarioRepository;
 import br.com.avocat.web.response.UsuarioDadosResponse;
@@ -23,6 +25,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDadosRepository usuarioDadosRepository;
+	
+	@Autowired
+	private UnidadeRepository unidadeRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -50,27 +55,29 @@ public class UsuarioService {
 
 		try {			
 			var usuario = usuarioRepository.findById(usuarioDados.getUsuarioId());
+			var unidade = unidadeRepository.findById(usuarioDados.getUnidadeId()).get();
 			
 			if(usuario.isPresent()) {
 
 				usuarioDados.setUsuario(usuario.get());
 				
 				UsuarioDados result = new UsuarioDados();
+				
+				var update = usuarioDadosRepository.findByUsuarioId(usuarioDados.getUsuarioId());
 
-				if(usuarioDados.getId() == null) {
-					usuarioDadosRepository.save(usuarioDados);
+				if(update.isEmpty()) {
+					result = usuarioDadosRepository.save(usuarioDados);
 					
 				} else {
-					var update = usuarioDadosRepository.findById(usuarioDados.getId());
 					
 					update.get().setNome(usuarioDados.getNome());
 					update.get().setEmail(usuarioDados.getEmail());
 					update.get().setCelular(usuarioDados.getCelular());
 					
 					result = usuarioDadosRepository.save(update.get());
-					
-					return Optional.of(new UsuarioDadosResponse(result));
 				}
+								
+				relacionarUsuarioComUnidade(unidade, result);
 				
 				return Optional.of(new UsuarioDadosResponse(result));
 			}
@@ -80,5 +87,10 @@ public class UsuarioService {
 		}
 		
 		return Optional.empty();
+	}
+	
+	private void relacionarUsuarioComUnidade(Unidade unidade, UsuarioDados result) {
+		unidade.getUsuariosDados().add(result);
+		unidadeRepository.save(unidade);
 	}	
 }
