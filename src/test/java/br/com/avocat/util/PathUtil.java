@@ -15,4 +15,8 @@ public class PathUtil {
 	public final static String PATH_PESSOA = "/v1/pessoas";
 	
 	public final static String PATH_CONTRATO = "/v1/contratos";
+	
+	public final static String PATH_PROCESSO = "/v1/processos";
+	
+	public final static String PATH_AREA = "/v1/areas";
 }
