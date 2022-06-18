@@ -6,7 +6,12 @@ import java.util.Optional;
 import br.com.avocat.persistence.model.generic.GenericEntity;
 
 public interface ServiceGeneric<T extends GenericEntity> {
-	List<T> all();
+	
 	Optional<T> save(T entity);
+
+	List<T> all();
+	
+	Optional<T> get(Long id);
+	
 	void del(Long id);
 }
