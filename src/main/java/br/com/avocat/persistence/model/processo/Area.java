@@ -19,5 +19,5 @@ public class Area extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String descricao;
+	private String descricao;	
 }

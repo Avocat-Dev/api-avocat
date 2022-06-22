@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public enum UsuarioStatusTypes {
 
-	ATIVO(1, "Usuário Ativo"),
-	INATIVO(2, "Usuário Inativo"),
-	BLOQUEADO(3, "Usuário Bloqueado"),
+	ATIVO(1, "Usuï¿½rio Ativo"),
+	INATIVO(2, "Usuï¿½rio Inativo"),
+	BLOQUEADO(3, "Usuï¿½rio Bloqueado"),
 	PENDENTE_LINK_CONFIRMACAO(4, "Pendente Primeiro Acesso");
-	
+
 	private final int value;
 	private final String descricao;
-	
+
 	UsuarioStatusTypes(int value, String descricao) {
 		this.value = value;
 		this.descricao = descricao;

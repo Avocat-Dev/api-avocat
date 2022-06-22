@@ -17,8 +17,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import br.com.avocat.persistence.model.processo.Area;
+import br.com.avocat.persistence.model.processo.Processo;
 import br.com.avocat.util.PathUtil;
 import br.com.avocat.web.request.LoginRequest;
+import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.TokenResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -45,6 +47,44 @@ public class ProcessoControllerTest {
 		//@formatter:on
 	}
 	
+	
+	@Test
+	public void cadastrarProcesso_entao200() throws Exception {
+		
+		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PROCESSO);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+		
+		HttpEntity<Processo> request = new HttpEntity<>(getProcesso(), headers);
+		ResponseEntity<ProcessoResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, ProcessoResponse.class); 
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+	
+	private Processo getProcesso() {
+		
+		Processo processo = new Processo();
+		
+		processo.setAreaId(1L);
+		processo.setContratoId(1L);
+		processo.setUnidadeId(2L);
+		
+		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
+		processo.setCodigoAuxiliar("");		
+		processo.setDataDistribuicao(null);
+		processo.setDataEntrada(null);
+		processo.setPartePrincipal("A. Raymond Brasil Ltda");
+		processo.setParteContraria("Adao Thiago Royo");
+		processo.setDetalheObjeto("Posto Avançado da Justiça do Trabalho de Jundiaí em Vinhedo.");
+		processo.setObservacaoInterna("");
+		processo.setObservacaoCliente("");
+		processo.setObservacaoEncerramento("");
+		processo.setObservacaoFinanceiro("");
+		
+		return processo;
+	}
+
+
 	@Test
 	public void criarNovaArea_entao200() throws Exception {
 		
