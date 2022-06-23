@@ -21,27 +21,28 @@ import br.com.avocat.web.response.PessoaResponse;
 @RestController
 @RequestMapping("/v1/processos")
 public class ProcessoController {
+
 	@Autowired
 	private ProcessoService processoService;
-	
+
 	@PostMapping
 	public ResponseEntity<ProcessoResponse> save(@RequestBody Processo data) {
-		var result = processoService.save(data);					
-		return ControllerUtil.resolve(result);		
+		var result = processoService.save(data);
+		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProcessoResponse> get(@PathVariable("id") final Long id) {
-		var result = processoService.get(id);		
-		if(result.isEmpty())
+		var result = processoService.get(id);
+		if (result.isEmpty())
 			return ControllerUtil.resolveNotFound();
-		
+
 		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<ProcessoResponse>> all() {
-		var result = processoService.all();						
+		var result = processoService.all();
 		return ControllerUtil.resolveAll(result);
 	}
 }

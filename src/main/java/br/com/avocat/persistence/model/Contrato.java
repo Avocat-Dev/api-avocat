@@ -48,13 +48,13 @@ public class Contrato extends AbsctractAuditaEntity implements Serializable {
 	private String anotacaoFaturamento;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "modalidade_id", nullable = false)
+	@Column(name = "modalidade_id")
 	private ContratoTypes modalidadeId;
-	
+
 	@OneToMany
-	@JoinColumn(name = "contrato_id", nullable = false)
+	@JoinColumn(name = "contrato_id")
 	private List<Processo> processos = new ArrayList<>();
-	
+
 	@Transient
 	private Long pessoaId;
 }

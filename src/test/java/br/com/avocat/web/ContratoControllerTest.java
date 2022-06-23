@@ -33,10 +33,10 @@ import io.restassured.response.Response;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class ContratoControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -85,16 +85,15 @@ public class ContratoControllerTest {
 					.andExpect(status().isOk());
 		//@formatter:on
 	}
-	
-	
+
 	private Contrato gerarContrato() {
 
 		Contrato contrato = new Contrato();
-		
+
 		contrato.setPessoaId(1L);
-		contrato.setAnotacaoFaturamento("Anotação Faturamento");
-		contrato.setAnotacaoGeral("Anotação Geral");
-		contrato.setAnotacaoNota("Anotação impressa na nota");
+		contrato.setAnotacaoFaturamento("AnotaÃ§Ã£o Faturamento");
+		contrato.setAnotacaoGeral("AnotaÃ§Ã£oo Geral");
+		contrato.setAnotacaoNota("AnotÃ§Ã£o impressa na nota");
 		contrato.setNomeContrato("Contrato Teste Automatizado");
 		contrato.setDataEncerramento(null);
 		contrato.setDataReajuste(null);

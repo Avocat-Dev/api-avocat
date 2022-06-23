@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.avocat.persistence.model.types.PessoaTypes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +39,7 @@ public class Pessoa extends AbsctractAuditaEntity implements Serializable {
 	@SequenceGenerator(name = "pessoa", sequenceName = "pessoa", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa")
 	private Long id;
-	
+
 	@Column(nullable = false, length = 100)
 	private String nome;
 
@@ -49,19 +51,19 @@ public class Pessoa extends AbsctractAuditaEntity implements Serializable {
 
 	@Column(length = 1000)
 	private String observacao;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private PessoaTypes tipoPessoa;
-	
+
 	private String inscrEstadual;
 	private Integer diaEmissao;
 	private Integer diaVencimento;
 	private Integer prazoVencimento;
-	
+
 	@OneToMany
 	@JoinColumn(name = "pessoa_id")
 	private List<Contrato> contratos = new ArrayList<>();
-	
+
 	@Transient
 	private Long unidadeId;
- }
+}

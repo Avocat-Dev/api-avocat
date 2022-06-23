@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,46 +40,44 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	@Column(name = "nr_processo", nullable = false)
 	private String numeroProcesso;
 	private String codigoAuxiliar;
-	
+
 	@Column(name = "parte_principal", nullable = false)
 	private String partePrincipal;
-	
+
 	@Column(name = "parte_contraria", nullable = false)
 	private String parteContraria;
-	
+
 	@Column(name = "obs_interna")
 	private String observacaoInterna;
-	
+
 	@Column(name = "obs_encerramento")
 	private String observacaoEncerramento;
-	
+
 	@Column(name = "obs_cliente")
 	private String observacaoCliente;
-	
+
 	@Column(name = "obs_financeiro")
 	private String observacaoFinanceiro;
-	
+
 	private String detalheObjeto;
-	
+
 	private LocalDate dataEntrada;
 	private LocalDate dataDistribuicao;
-	
+
 	@OneToOne
-	@JoinColumn(name = "area_id", nullable = false)
+	@JoinColumn(name = "area_id")
 	private Area area;
-	
+
 	@OneToOne
 	@JoinColumn(name = "unidade_id", nullable = false)
 	private Unidade unidade;
-	
-	
+
 	@Transient
 	private Long areaId;
-	
+
 	@Transient
 	private Long unidadeId;
-	
+
 	@Transient
 	private Long contratoId;
 }
-

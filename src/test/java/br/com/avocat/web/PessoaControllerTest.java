@@ -33,10 +33,10 @@ import io.restassured.response.Response;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class PessoaControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -85,14 +85,13 @@ public class PessoaControllerTest {
 					.andExpect(status().isOk());
 		//@formatter:on
 	}
-	
-	
+
 	private Pessoa gerarPessoa() {
 
 		Pessoa pessoa = new Pessoa();
-		
-		pessoa.setUnidadeId(2L);
-		
+
+		pessoa.setUnidadeId(1L);
+
 		pessoa.setNome("Empreasa Teste S.A");
 		pessoa.setCpfCnpj("00000000000000");
 		pessoa.setDiaEmissao(5);
@@ -102,7 +101,7 @@ public class PessoaControllerTest {
 		pessoa.setTipoPessoa(PessoaTypes.PESSOA_JURICA);
 		pessoa.setObservacao("Cadastro do teste automatizado");
 		pessoa.setPrazoVencimento(15);
-				
+
 		return pessoa;
 	}
 }

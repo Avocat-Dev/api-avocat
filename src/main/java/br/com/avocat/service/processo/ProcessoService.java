@@ -17,11 +17,15 @@ import java.util.Optional;
 @Service
 public class ProcessoService {
 
+	@Autowired
 	private ProcessoRepository processoRepository;
+
 	@Autowired
 	private AreaRepository areaRepository;
+
 	@Autowired
 	private UnidadeRepository unidadeRepository;
+
 	@Autowired
 	private ContratoRepository contratoRepository;
 
@@ -29,8 +33,6 @@ public class ProcessoService {
 
 		try {
 			var unidade = unidadeRepository.findById(processo.getUnidadeId());
-			var contrato = contratoRepository.findById(processo.getContratoId());
-
 
 			var area = areaRepository.findById(processo.getAreaId());
 
@@ -39,13 +41,15 @@ public class ProcessoService {
 
 			var result = processoRepository.save(processo);
 
+			var contrato = contratoRepository.findById(processo.getContratoId());
 			contrato.get().getProcessos().add(result);
+			contratoRepository.save(contrato.get());
 
-			if(result != null)
+			if (result != null)
 				return Optional.of(new ProcessoResponse(result));
-			else	
-				return Optional.empty();			
-		
+			else
+				return Optional.empty();
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,15 +56,15 @@ public class Unidade extends AbsctractAuditaEntity implements Serializable {
 	private String nomeUnidade;
 	private String codigoUnidade;
 	private String logoUnidade;
-	
+
 	@OneToMany
 	@JoinColumn(name = "unidade_id")
 	private List<Pessoa> pessoas = new ArrayList<>();
-	
+
 	@OneToMany
 	@JoinColumn(name = "unidade_id")
 	private List<UsuarioDados> usuariosDados = new ArrayList<>();
-	
+
 	@Transient
 	private Long escritorioId;
 }

@@ -35,7 +35,7 @@ public class ProcessoControllerTest {
 	private String token;
 
 	@BeforeEach
-	public void setUp()  throws Exception {
+	public void setUp() throws Exception {
 
 		//@formatter:off
 		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AUTH_TOKEN);
@@ -46,61 +46,60 @@ public class ProcessoControllerTest {
 		token = response.getBody().getToken();
 		//@formatter:on
 	}
-	
-	
+
 	@Test
 	public void cadastrarProcesso_entao200() throws Exception {
-		
+
 		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PROCESSO);
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
-		
+
 		HttpEntity<Processo> request = new HttpEntity<>(getProcesso(), headers);
-		ResponseEntity<ProcessoResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, ProcessoResponse.class); 
+		ResponseEntity<ProcessoResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				ProcessoResponse.class);
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
-	
+
 	private Processo getProcesso() {
-		
+
 		Processo processo = new Processo();
-		
+
 		processo.setAreaId(1L);
 		processo.setContratoId(1L);
-		processo.setUnidadeId(2L);
-		
-		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
-		processo.setCodigoAuxiliar("");		
+		processo.setUnidadeId(1L);
+
+		processo.setNumeroProcesso("0012782-75.2016.5.15.0024");
+		processo.setCodigoAuxiliar("");
 		processo.setDataDistribuicao(null);
 		processo.setDataEntrada(null);
 		processo.setPartePrincipal("A. Raymond Brasil Ltda");
 		processo.setParteContraria("Adao Thiago Royo");
-		processo.setDetalheObjeto("Posto Avançado da Justiça do Trabalho de Jundiaí em Vinhedo.");
+		processo.setDetalheObjeto("Posto AvanÃ§ado da JustiÃ§a do Trabalho de Jundiai em Vinhedo.");
 		processo.setObservacaoInterna("");
 		processo.setObservacaoCliente("");
 		processo.setObservacaoEncerramento("");
 		processo.setObservacaoFinanceiro("");
-		
+
 		return processo;
 	}
 
-
 	@Test
 	public void criarNovaArea_entao200() throws Exception {
-		
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AREA);		
+
+		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AREA);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
-		
+
 		HttpEntity<Area> request = new HttpEntity<>(getArea(), headers);
-		ResponseEntity<Area> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, Area.class); 
+		ResponseEntity<Area> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, Area.class);
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
-	
+
 	private Area getArea() {
-		Area area = new Area();				
-		area.setDescricao("Trabalhista");		
+		Area area = new Area();
+		area.setDescricao("Trabalhista");
 		return area;
 	}
 }

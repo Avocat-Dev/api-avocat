@@ -36,7 +36,7 @@ public class UsuarioControllerTest {
 	private String token;
 
 	@BeforeEach
-	public void setUp()  throws Exception {
+	public void setUp() throws Exception {
 
 		//@formatter:off
 		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AUTH_TOKEN);
@@ -47,17 +47,18 @@ public class UsuarioControllerTest {
 		token = response.getBody().getToken();
 		//@formatter:on
 	}
-	
+
 	@Test
 	public void criarNovoUsuario_entao200() throws Exception {
-		
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_USUARIOS + "/conta");		
+
+		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_USUARIOS + "/conta");
 
 		HttpEntity<Usuario> request = new HttpEntity<>(getUsuario());
-		ResponseEntity<UsuarioResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, UsuarioResponse.class); 
+		ResponseEntity<UsuarioResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				UsuarioResponse.class);
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
-	
+
 	@Test
 	public void atualizarUsuarioDados_entao200() throws Exception {
 
@@ -67,24 +68,25 @@ public class UsuarioControllerTest {
 		headers.set("Authorization", "Bearer " + token);
 
 		HttpEntity<UsuarioDados> request = new HttpEntity<>(getUsuarioPut(), headers);
-		ResponseEntity<UsuarioDadosResponse> result = this.restTemplate.exchange(uri,HttpMethod.PUT, request, UsuarioDadosResponse.class); 
-		assertEquals(result.getStatusCodeValue(), 200);				
+		ResponseEntity<UsuarioDadosResponse> result = this.restTemplate.exchange(uri, HttpMethod.PUT, request,
+				UsuarioDadosResponse.class);
+		assertEquals(result.getStatusCodeValue(), 200);
 	}
-	
+
 	private Usuario getUsuario() {
-		Usuario usuario = new Usuario();				
+		Usuario usuario = new Usuario();
 		usuario.setPassword("123");
 		usuario.setUsername("dev@dev.com.br");
 		return usuario;
 	}
-	
+
 	private UsuarioDados getUsuarioPut() {
-		UsuarioDados usuarioDados = new UsuarioDados();		
+		UsuarioDados usuarioDados = new UsuarioDados();
 		usuarioDados.setNome("Michael Sousa");
 		usuarioDados.setEmail("dev@dev.com.br");
 		usuarioDados.setCelular("11999880099");
 		usuarioDados.setUsuarioId(1L);
-		usuarioDados.setUnidadeId(2L);
+		usuarioDados.setUnidadeId(1L);
 		usuarioDados.setUsuario(null);
 		return usuarioDados;
 	}
