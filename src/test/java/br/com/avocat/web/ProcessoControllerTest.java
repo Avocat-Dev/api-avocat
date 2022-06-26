@@ -71,9 +71,16 @@ public class ProcessoControllerTest {
 
 		Processo processo = new Processo();
 
-		processo.setAreaId(1L);
 		processo.setContratoId(1L);
 		processo.setUnidadeId(1L);
+
+		processo.setAreaId(1L);
+		processo.setTipoAcaoId(2L);
+		processo.setFaseId(3L);
+		processo.setRitoId(4L);
+		processo.setComcarcaId(8L);
+		processo.setForoId(10L);
+		processo.setVaraId(9L);
 
 		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
 		processo.setCodigoAuxiliar("");

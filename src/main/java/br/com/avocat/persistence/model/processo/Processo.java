@@ -69,6 +69,30 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "area_id")
 	private Area area;
+	
+	@OneToOne
+	@JoinColumn(name = "acao_id")
+	private TipoAcao tipoAcao;
+	
+	@OneToOne
+	@JoinColumn(name = "fase_id")
+	private FaseProcessual faseProcessual;
+	
+	@OneToOne
+	@JoinColumn(name = "rito_id")
+	private Rito rito;
+	
+	@OneToOne
+	@JoinColumn(name = "comarca_id")
+	private Comarca comarca;
+	
+	@OneToOne
+	@JoinColumn(name = "foro_id")
+	private Foro foro;
+	
+	@OneToOne
+	@JoinColumn(name = "vara_id")
+	private Vara vara;
 
 	@OneToOne
 	@JoinColumn(name = "unidade_id", nullable = false)
@@ -78,12 +102,31 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	@JoinColumn(name = "contrato_id", referencedColumnName = "id", nullable = false)
 	private Contrato contrato;
 
-	@Transient
-	private Long areaId;
 
 	@Transient
 	private Long unidadeId;
 
 	@Transient
 	private Long contratoId;
+	
+	@Transient
+	private Long areaId;	
+
+	@Transient
+	private Long tipoAcaoId;
+	
+	@Transient
+	private Long faseId;
+	
+	@Transient
+	private Long ritoId;
+	
+	@Transient
+	private Long comcarcaId;
+	
+	@Transient
+	private Long foroId;
+	
+	@Transient
+	private Long varaId;
 }
