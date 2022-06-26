@@ -27,12 +27,10 @@ public class ContratoService {
 	public Optional<ContratoResponse> save(Contrato contrato) {
 		
 		try {			
+			var pessoa = pessoaRepository.findById(contrato.getPessoaId());
+			contrato.setPessoa(pessoa.get());
+			
 			var result = contratoRepository.save(contrato);
-			
-			var pessoa = pessoaRepository.findById(contrato.getPessoaId()).get();
-			pessoa.getContratos().add(contrato);
-			
-			pessoaRepository.save(pessoa);
 			
 			if(result != null)
 				return Optional.of(new ContratoResponse(result));

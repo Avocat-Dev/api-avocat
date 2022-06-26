@@ -27,12 +27,10 @@ public class PessoaService {
 	public Optional<PessoaResponse> save(Pessoa pessoa) {
 		
 		try {												
+			var unidade = unidadeRepository.findById(pessoa.getUnidadeId());
+			pessoa.setUnidade(unidade.get());
+			
 			var result = pessoaRepository.save(pessoa);
-			
-			var unidade = unidadeRepository.findById(pessoa.getUnidadeId()).get();
-			unidade.getPessoas().add(result);
-			
-			unidadeRepository.save(unidade);
 			
 			if(result != null)
 				return Optional.of(new PessoaResponse(result));

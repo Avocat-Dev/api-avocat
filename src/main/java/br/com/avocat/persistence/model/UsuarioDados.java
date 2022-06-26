@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,8 +36,12 @@ public class UsuarioDados implements Serializable {
 	private String celular;	
 	
 	@OneToOne
-	@JoinColumn(name = "usuario_id", unique = true)
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;	
+	
+	@ManyToOne
+	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
+	private Unidade unidade;
 	
 	@Transient
 	private Long usuarioId;

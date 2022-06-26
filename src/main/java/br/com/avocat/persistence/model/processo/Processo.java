@@ -5,17 +5,18 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.avocat.persistence.model.AbsctractAuditaEntity;
+import br.com.avocat.persistence.model.Contrato;
 import br.com.avocat.persistence.model.Unidade;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -71,6 +72,10 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "unidade_id", nullable = false)
 	private Unidade unidade;
+	
+	@ManyToOne
+	@JoinColumn(name = "contrato_id", referencedColumnName = "id")
+	private Contrato contrato;
 
 	@Transient
 	private Long areaId;

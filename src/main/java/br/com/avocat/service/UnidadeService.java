@@ -27,12 +27,11 @@ public class UnidadeService {
 	public Optional<UnidadeResponse> save(Unidade unidade) {
 		
 		try {			
-			var result = unidadeRepository.save(unidade);
 
 			var escritorio = escritorioRepository.findById(unidade.getEscritorioId()).get();		
-			escritorio.getUnidades().add(unidade);
+			unidade.setEscritorio(escritorio);
 			
-			escritorioRepository.save(escritorio);			
+			var result = unidadeRepository.save(unidade);
 			
 			if(result != null)
 				return Optional.of(new UnidadeResponse(result));
