@@ -66,43 +66,43 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	private LocalDate dataEntrada;
 	private LocalDate dataDistribuicao;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "papel_pt_principal_id")
 	private Papel papelPartePrincipal;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "papel_pt_contraria_id")
 	private Papel papelParteContraria;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id")
 	private Area area;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "acao_id")
 	private TipoAcao tipoAcao;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fase_id")
 	private FaseProcessual faseProcessual;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "rito_id")
 	private Rito rito;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "comarca_id")
 	private Comarca comarca;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "foro_id")
 	private Foro foro;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "vara_id")
 	private Vara vara;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "unidade_id", nullable = false)
 	private Unidade unidade;
 	
@@ -143,4 +143,7 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	
 	@Transient
 	private Long parteContrariaId;
+	
+	@Transient
+	private Long tipoValorId;
 }
