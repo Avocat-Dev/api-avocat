@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,8 +74,8 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	@JoinColumn(name = "unidade_id", nullable = false)
 	private Unidade unidade;
 	
-	@ManyToOne
-	@JoinColumn(name = "contrato_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "contrato_id", referencedColumnName = "id", nullable = false)
 	private Contrato contrato;
 
 	@Transient

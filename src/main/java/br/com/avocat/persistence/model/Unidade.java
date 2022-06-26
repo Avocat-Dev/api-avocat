@@ -55,7 +55,7 @@ public class Unidade extends AbsctractAuditaEntity implements Serializable {
 	private String logoUnidade;
 
 	@ManyToOne
-	@JoinColumn(name = "escritorio_id", referencedColumnName = "id")
+	@JoinColumn(name = "escritorio_id", referencedColumnName = "id", nullable = false)
 	private Escritorio escritorio;
 	
 	@Transient

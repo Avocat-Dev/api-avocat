@@ -69,7 +69,7 @@ public class ProcessoControllerTest {
 		processo.setContratoId(1L);
 		processo.setUnidadeId(1L);
 
-		processo.setNumeroProcesso("0012782-75.2016.5.15.0024");
+		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
 		processo.setCodigoAuxiliar("");
 		processo.setDataDistribuicao(null);
 		processo.setDataEntrada(null);
