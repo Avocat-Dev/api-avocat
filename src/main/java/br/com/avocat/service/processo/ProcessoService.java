@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.avocat.persistence.model.processo.Processo;
-import br.com.avocat.persistence.model.processo.TipoAcao;
 import br.com.avocat.persistence.repository.ContratoRepository;
 import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.persistence.repository.processo.AreaRepository;
 import br.com.avocat.persistence.repository.processo.ComarcaRepository;
 import br.com.avocat.persistence.repository.processo.FaseProcessualRepository;
 import br.com.avocat.persistence.repository.processo.ForoRepository;
+import br.com.avocat.persistence.repository.processo.PapelRepository;
 import br.com.avocat.persistence.repository.processo.ProcessoRepository;
 import br.com.avocat.persistence.repository.processo.RitoRepository;
 import br.com.avocat.persistence.repository.processo.TipoAcaoRepository;
@@ -46,7 +46,9 @@ public class ProcessoService {
 	
 	@Autowired
 	private VaraRepository varaRepository;
-	
+
+	@Autowired
+	private PapelRepository papelRepository;
 
 	@Autowired
 	private UnidadeRepository unidadeRepository;
@@ -67,6 +69,8 @@ public class ProcessoService {
 			var comarca = comarcaRepository.findById(processo.getComcarcaId());
 			var foro = foroRepository.findById(processo.getForoId());
 			var vara = varaRepository.findById(processo.getVaraId());
+			var partePrincipal = papelRepository.findById(processo.getPartePrincipalId());
+			var parteContraria = papelRepository.findById(processo.getParteContrariaId());
 			
 			processo.setUnidade(unidade.get());
 			processo.setContrato(contrato.get());
@@ -77,6 +81,8 @@ public class ProcessoService {
 			processo.setComarca(comarca.get());
 			processo.setForo(foro.get());
 			processo.setVara(vara.get());
+			processo.setPapelPartePrincipal(partePrincipal.get());
+			processo.setPapelParteContraria(parteContraria.get());
 
 			var result = processoRepository.save(processo);
 

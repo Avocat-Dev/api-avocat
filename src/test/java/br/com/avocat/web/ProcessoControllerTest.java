@@ -20,6 +20,7 @@ import br.com.avocat.persistence.model.processo.Area;
 import br.com.avocat.persistence.model.processo.Comarca;
 import br.com.avocat.persistence.model.processo.FaseProcessual;
 import br.com.avocat.persistence.model.processo.Foro;
+import br.com.avocat.persistence.model.processo.Papel;
 import br.com.avocat.persistence.model.processo.Processo;
 import br.com.avocat.persistence.model.processo.Rito;
 import br.com.avocat.persistence.model.processo.TipoAcao;
@@ -81,6 +82,8 @@ public class ProcessoControllerTest {
 		processo.setComcarcaId(8L);
 		processo.setForoId(10L);
 		processo.setVaraId(9L);
+		processo.setPartePrincipalId(11L);
+		processo.setParteContrariaId(12L);
 
 		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
 		processo.setCodigoAuxiliar("");
@@ -187,6 +190,25 @@ public class ProcessoControllerTest {
 		HttpEntity<Vara> request = new HttpEntity<>(getVara(), headers);
 		ResponseEntity<Vara> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, Vara.class);
 		assertEquals(result.getStatusCodeValue(), 200);
+	}
+
+	@Test
+	public void criarPapel_entao200() throws Exception {
+
+		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PAPEL);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Papel> request = new HttpEntity<>(getPepel(), headers);
+		ResponseEntity<Papel> result = this.restTemplate.exchange(uri, HttpMethod.POST, request, Papel.class);
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+	
+	private Papel getPepel() {
+		Papel papel = new Papel();
+		papel.setDescricao("Vítima");
+		return papel;
 	}
 
 	private Foro getForo() {

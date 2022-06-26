@@ -31,4 +31,6 @@ public class PathUtil {
 	public static final String PATH_FORO = "/v1/foros";
 	
 	public static final String PATH_VARA = "/v1/varas";
+
+	public static final String PATH_PAPEL = "/v1/papeis";
 }

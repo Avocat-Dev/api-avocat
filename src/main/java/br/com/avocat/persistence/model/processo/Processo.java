@@ -67,6 +67,14 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	private LocalDate dataDistribuicao;
 
 	@OneToOne
+	@JoinColumn(name = "papel_pt_principal_id")
+	private Papel papelPartePrincipal;
+	
+	@OneToOne
+	@JoinColumn(name = "papel_pt_contraria_id")
+	private Papel papelParteContraria;
+	
+	@OneToOne
 	@JoinColumn(name = "area_id")
 	private Area area;
 	
@@ -129,4 +137,10 @@ public class Processo extends AbsctractAuditaEntity implements Serializable {
 	
 	@Transient
 	private Long varaId;
+	
+	@Transient
+	private Long partePrincipalId;
+	
+	@Transient
+	private Long parteContrariaId;
 }
