@@ -19,4 +19,16 @@ public class PathUtil {
 	public final static String PATH_PROCESSO = "/v1/processos";
 	
 	public final static String PATH_AREA = "/v1/areas";
+	
+	public final static String PATH_TIPO_ACAO = "/v1/tipo-acoes";
+
+	public static final String PATH_FASE_PROCESSUAL = "/v1/fases-processuais";
+
+	public static final String PATH_RITO = "/v1/ritos";
+	
+	public static final String PATH_COMARCA = "/v1/comarcas";
+	
+	public static final String PATH_FORO = "/v1/foros";
+	
+	public static final String PATH_VARA = "/v1/varas";
 }
