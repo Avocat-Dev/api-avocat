@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.spring.jwt.JwtTokenProvider;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.TokenResponse;
 
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping(ConstantesUtil.PATH_AUTH_V1)
 public class AutenticacaoController {
 
 	@Autowired

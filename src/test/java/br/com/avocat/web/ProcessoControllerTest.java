@@ -25,7 +25,7 @@ import br.com.avocat.persistence.model.processo.Processo;
 import br.com.avocat.persistence.model.processo.Rito;
 import br.com.avocat.persistence.model.processo.TipoAcao;
 import br.com.avocat.persistence.model.processo.Vara;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.TokenResponse;
@@ -45,7 +45,7 @@ public class ProcessoControllerTest {
 	public void setUp() throws Exception {
 
 		//@formatter:off
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AUTH_TOKEN);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		HttpEntity<LoginRequest> request = new HttpEntity<>(new LoginRequest("dev@dev.com.br", "123"));
 		ResponseEntity<TokenResponse> response = this.restTemplate.exchange(uri,HttpMethod.POST, request, TokenResponse.class);
@@ -54,10 +54,10 @@ public class ProcessoControllerTest {
 		//@formatter:on
 	}
 
-	@Test
+	@Test	
 	public void cadastrarProcesso_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PROCESSO);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -75,15 +75,15 @@ public class ProcessoControllerTest {
 		processo.setContratoId(1L);
 		processo.setUnidadeId(1L);
 
-		processo.setAreaId(1L);
-		processo.setTipoAcaoId(2L);
+		processo.setAreaId(7L);
+		processo.setTipoAcaoId(9L);
 		processo.setFaseId(3L);
-		processo.setRitoId(4L);
-		processo.setComcarcaId(8L);
-		processo.setForoId(10L);
-		processo.setVaraId(9L);
-		processo.setPartePrincipalId(11L);
-		processo.setParteContrariaId(12L);
+		processo.setRitoId(2L);
+		processo.setComcarcaId(5L);
+		processo.setForoId(6L);
+		processo.setVaraId(1L);
+		processo.setPartePrincipalId(4L);
+		processo.setParteContrariaId(4L);
 
 		processo.setNumeroProcesso("0012782-75.2016.5.15.0021");
 		processo.setCodigoAuxiliar("");
@@ -103,7 +103,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarArea_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AREA);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/areas");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -116,7 +116,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarTipoAcao_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_TIPO_ACAO);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/tipos-acoes");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -129,7 +129,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarFaseProcessual_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_FASE_PROCESSUAL);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/fases-processuais");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -142,7 +142,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarRito_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_RITO);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/ritos");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -155,7 +155,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarComarca_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_COMARCA);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/comarcas");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -169,7 +169,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarForo_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_FORO);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/foros");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -182,7 +182,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarVara_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_VARA);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/varas");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -195,7 +195,7 @@ public class ProcessoControllerTest {
 	@Test
 	public void criarPapel_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PAPEL);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/papeis");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);

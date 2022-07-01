@@ -1,4 +1,4 @@
-package br.com.avocat.web.controller;
+package br.com.avocat.web.controller.processo;
 
 import java.util.List;
 
@@ -11,38 +11,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.avocat.persistence.model.Contrato;
-import br.com.avocat.service.ContratoService;
+import br.com.avocat.persistence.model.processo.Andamento;
+import br.com.avocat.service.processo.AndamentoService;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
-import br.com.avocat.web.response.ContratoResponse;
+import br.com.avocat.web.response.AndamentoResponse;
 
 @RestController
-@RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/contratos")
-public class ContratoController {
+@RequestMapping(ConstantesUtil.PATH_PROCESSO_V1 + "/andamentos")
+public class AndamentoController {
 
 	@Autowired
-	private ContratoService contratoService;
+	private AndamentoService andamentoService;
 
 	@PostMapping
-	public ResponseEntity<ContratoResponse> save(@RequestBody Contrato data) {
-		var result = contratoService.save(data);					
-		return ControllerUtil.resolve(result);		
+	public ResponseEntity<AndamentoResponse> save(@RequestBody Andamento data) {
+		var result = andamentoService.save(data);
+		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ContratoResponse> get(@PathVariable("id") final Long id) {
-		var result = contratoService.get(id);		
-		
-		if(result.isEmpty())
+	public ResponseEntity<AndamentoResponse> get(@PathVariable("id") final Long id) {
+		var result = andamentoService.get(id);
+		if (result.isEmpty())
 			return ControllerUtil.resolveNotFound();
-		
+
 		return ControllerUtil.resolve(result);
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<ContratoResponse>> all() {
-		var result = contratoService.all();						
+	public ResponseEntity<List<AndamentoResponse>> all() {
+		var result = andamentoService.all();
 		return ControllerUtil.resolveAll(result);
 	}
 }

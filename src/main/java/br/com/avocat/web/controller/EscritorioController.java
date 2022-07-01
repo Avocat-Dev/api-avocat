@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.service.EscritorioService;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
 import br.com.avocat.web.response.EscritorioResponse;
 
 @RestController
-@RequestMapping("/v1/escritorios")
+@RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios")
 public class EscritorioController {
 	
 	@Autowired
@@ -26,7 +27,7 @@ public class EscritorioController {
 		return ControllerUtil.resolve(result);
 	}
 
-	@GetMapping
+	@GetMapping("/{id}")
 	public ResponseEntity<EscritorioResponse> get(Long id) {
 		var result = escritorioService.get(id);
 		

@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.UsuarioDados;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.TokenResponse;
 import br.com.avocat.web.response.UsuarioDadosResponse;
@@ -39,7 +39,7 @@ public class UsuarioControllerTest {
 	public void setUp() throws Exception {
 
 		//@formatter:off
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AUTH_TOKEN);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		HttpEntity<LoginRequest> request = new HttpEntity<>(new LoginRequest("dev@dev.com.br", "123"));
 		ResponseEntity<TokenResponse> response = this.restTemplate.exchange(uri,HttpMethod.POST, request, TokenResponse.class);
@@ -51,7 +51,7 @@ public class UsuarioControllerTest {
 	@Test
 	public void criarNovoUsuario_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_USUARIOS + "/conta");
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/conta");
 
 		HttpEntity<Usuario> request = new HttpEntity<>(getUsuario());
 		ResponseEntity<UsuarioResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
@@ -62,7 +62,7 @@ public class UsuarioControllerTest {
 	@Test
 	public void atualizarUsuarioDados_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_USUARIOS);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);

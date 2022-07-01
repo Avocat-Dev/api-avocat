@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "usuarios_dados")
+@Table(name = "usu_usuarios_dados")
 public class UsuarioDados implements Serializable {
 
 	private static final long serialVersionUID = 1L;

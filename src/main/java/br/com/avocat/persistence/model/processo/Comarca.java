@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import br.com.avocat.persistence.model.generic.GenericEntity;
 
 @Entity
-@Table(name = "comarcas")
+@Table(name = "pro_comarcas")
 public class Comarca extends GenericEntity {
 	private static final long serialVersionUID = 1L;
 }

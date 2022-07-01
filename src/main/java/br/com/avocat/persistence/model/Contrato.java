@@ -28,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "contratos")
+@Table(name = "adm_contratos")
 public class Contrato extends AbsctractAuditaEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

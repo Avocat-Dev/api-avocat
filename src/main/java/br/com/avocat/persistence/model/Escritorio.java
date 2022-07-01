@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "escritorios")
+@Table(name = "adm_escritorios")
 public class Escritorio extends AbsctractAuditaEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

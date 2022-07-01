@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.avocat.persistence.model.processo.Processo;
 import br.com.avocat.persistence.model.processo.ValorCausa;
 import br.com.avocat.service.processo.ProcessoService;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
 import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.ValorCausaResponse;
 
 @RestController
-@RequestMapping("/v1/processos")
+@RequestMapping(ConstantesUtil.PATH_PROCESSO_V1)
 public class ProcessoController {
 
 	@Autowired

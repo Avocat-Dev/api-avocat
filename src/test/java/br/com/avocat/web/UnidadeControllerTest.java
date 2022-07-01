@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.avocat.persistence.model.Unidade;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -63,7 +63,7 @@ public class UnidadeControllerTest {
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
 				.body(new LoginRequest("dev@dev.com.br", "123"))
-				.when().post(PathUtil.PATH_AUTH_TOKEN);
+				.when().post(ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		JsonPath jsonPath = response.jsonPath();
 		
@@ -76,7 +76,7 @@ public class UnidadeControllerTest {
 		//@formatter:off
 		this.mockMvc
 			.perform(
-					post(PathUtil.PATH_UNIDADE)
+					post(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/unidades")
 					.header("Authorization", "Bearer " + token)
 					.content(this.objectMapper.writeValueAsBytes(gerarUnidade()))
 					.contentType(MediaType.APPLICATION_JSON)

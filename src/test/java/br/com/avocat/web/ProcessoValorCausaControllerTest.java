@@ -22,7 +22,7 @@ import br.com.avocat.persistence.model.processo.TipoValor;
 import br.com.avocat.persistence.model.processo.ValorCausa;
 import br.com.avocat.persistence.model.types.MoedaTypes;
 import br.com.avocat.persistence.model.types.ProbabilidadeTypes;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.TokenResponse;
 
@@ -41,7 +41,7 @@ public class ProcessoValorCausaControllerTest {
 	public void setUp() throws Exception {
 
 		//@formatter:off
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_AUTH_TOKEN);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		HttpEntity<LoginRequest> request = new HttpEntity<>(new LoginRequest("dev@dev.com.br", "123"));
 		ResponseEntity<TokenResponse> response = this.restTemplate.exchange(uri,HttpMethod.POST, request, TokenResponse.class);
@@ -53,7 +53,7 @@ public class ProcessoValorCausaControllerTest {
 	@Test
 	public void cadastrarValorCausa_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PROCESSO + "/valor-causa");
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/valor-causa");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
@@ -67,7 +67,7 @@ public class ProcessoValorCausaControllerTest {
 	@Test
 	public void criarTipoValor_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_PROCESSO + "/tipos-valores");
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/tipos-valores");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);

@@ -68,6 +68,7 @@ public class ProcessoService {
 	@Autowired
 	private ContratoRepository contratoRepository;
 
+	@Transactional
 	public Optional<ProcessoResponse> save(Processo processo) {
 
 		try {

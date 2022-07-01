@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import br.com.avocat.web.response.EscritorioResponse;
 import io.restassured.RestAssured;
@@ -59,7 +59,7 @@ public class EscritorioControllerTest {
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
 				.body(new LoginRequest("dev@dev.com.br", "123"))
-				.when().post(PathUtil.PATH_AUTH_TOKEN);
+				.when().post(ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		JsonPath jsonPath = response.jsonPath();
 		
@@ -70,10 +70,10 @@ public class EscritorioControllerTest {
 	@Test
 	public void cadastrarEscritorio_entao200() throws Exception {
 
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_ESCRITORIO);
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios");
 
 		var contrato = new Escritorio();
-		contrato.setNome("Escritório Teste");
+		contrato.setNome("EscritÃ³rio Teste");
 		
 		var escritorioDto = new EscritorioResponse(contrato);
 
@@ -89,7 +89,7 @@ public class EscritorioControllerTest {
 	
 	@Test
 	public void buscarEscritorioPorId_entao200() throws Exception {
-		URI uri = new URI(PathUtil.LOCAL_HOST + port + PathUtil.PATH_ESCRITORIO + "/1");
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios/1");
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);

@@ -23,7 +23,7 @@ import br.com.avocat.persistence.model.Pessoa;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.types.PessoaTypes;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -64,7 +64,7 @@ public class PessoaControllerTest {
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
 				.body(new LoginRequest("dev@dev.com.br", "123"))
-				.when().post(PathUtil.PATH_AUTH_TOKEN);
+				.when().post(ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		JsonPath jsonPath = response.jsonPath();
 		
@@ -77,7 +77,7 @@ public class PessoaControllerTest {
 		//@formatter:off
 		this.mockMvc
 			.perform(
-					post(PathUtil.PATH_PESSOA)
+					post(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/pessoas")
 					.header("Authorization", "Bearer " + token)
 					.content(this.objectMapper.writeValueAsBytes(gerarPessoa()))
 					.contentType(MediaType.APPLICATION_JSON)
