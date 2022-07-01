@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.persistence.model.Pessoa;
 import br.com.avocat.service.PessoaService;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
 import br.com.avocat.web.response.PessoaResponse;
 
 @RestController
-@RequestMapping("/v1/pessoas")
+@RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/pessoas")
 public class PessoaController {
 
 	@Autowired

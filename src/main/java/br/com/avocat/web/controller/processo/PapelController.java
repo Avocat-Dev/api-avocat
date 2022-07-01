@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.persistence.model.processo.Papel;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.controller.generic.impl.ControllerGenericImpl;
 
 @RestController
-@RequestMapping("/v1/papeis")
+@RequestMapping(ConstantesUtil.PATH_PROCESSO_V1 + "/papeis")
 public class PapelController extends ControllerGenericImpl<Papel> {
 
 }

@@ -23,7 +23,7 @@ import br.com.avocat.persistence.model.Contrato;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.types.ContratoTypes;
 import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.util.PathUtil;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -64,7 +64,7 @@ public class ContratoControllerTest {
 		Response response = RestAssured.given()
 				.contentType(ContentType.JSON)
 				.body(new LoginRequest("dev@dev.com.br", "123"))
-				.when().post(PathUtil.PATH_AUTH_TOKEN);
+				.when().post(ConstantesUtil.PATH_AUTH_V1 + "/token");
 		
 		JsonPath jsonPath = response.jsonPath();
 		
@@ -77,7 +77,7 @@ public class ContratoControllerTest {
 		//@formatter:off
 		this.mockMvc
 			.perform(
-					post(PathUtil.PATH_CONTRATO)
+					post(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/contratos")
 					.header("Authorization", "Bearer " + token)
 					.content(this.objectMapper.writeValueAsBytes(gerarContrato()))
 					.contentType(MediaType.APPLICATION_JSON)

@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.persistence.model.Unidade;
 import br.com.avocat.service.UnidadeService;
+import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
 import br.com.avocat.web.response.UnidadeResponse;
 
 @RestController
-@RequestMapping("/v1/unidades")
+@RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/unidades")
 public class UnidadeController {
 
 	@Autowired

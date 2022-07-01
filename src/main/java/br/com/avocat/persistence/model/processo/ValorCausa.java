@@ -31,7 +31,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pro_valores_causa")
+@Table(name = "pro_valores_causas")
 public class ValorCausa extends AbsctractAuditaEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

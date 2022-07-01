@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "unidades")
+@Table(name = "adm_unidades")
 public class Unidade extends AbsctractAuditaEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
