@@ -31,6 +31,10 @@ public class UsuarioService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private GrupoService grupoService;
+	
+	//TODO fazer a criaçao de uma conta Master com algumas configurações iniciais.
 	@Transactional
 	public Optional<UsuarioResponse> novaConta(Usuario credencial) {
 
@@ -55,6 +59,7 @@ public class UsuarioService {
 		try {
 			var usuario = usuarioRepository.findById(data.getUsuarioId());
 			var unidade = unidadeRepository.findById(data.getUnidadeId()).get();
+			var grupo = grupoService.get(data.getGrupoId());
 
 			UsuarioDados result = new UsuarioDados();
 			
@@ -62,6 +67,7 @@ public class UsuarioService {
 				
 				data.setUnidade(unidade);
 				data.setUsuario(usuario.get());
+				data.setGrupo(grupo.get());
 
 				result = usuarioDadosRepository.save(data);
 
@@ -73,6 +79,7 @@ public class UsuarioService {
 				resUsuarioDados.get().setEmail(data.getEmail());
 				resUsuarioDados.get().setCelular(data.getCelular());
 				resUsuarioDados.get().setUnidade(unidade);
+				resUsuarioDados.get().setGrupo(grupo.get());
 
 				result = usuarioDadosRepository.save(resUsuarioDados.get());
 			}

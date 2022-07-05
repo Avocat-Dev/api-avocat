@@ -3,6 +3,7 @@ package br.com.avocat.persistence.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,17 +36,24 @@ public class UsuarioDados implements Serializable {
 	private String email;
 	private String celular;	
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
 	private Unidade unidade;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "grupo_id", referencedColumnName = "id")
+	private Grupo grupo;
 	
 	@Transient
 	private Long usuarioId;
 	
 	@Transient
 	private Long unidadeId;
+	
+	@Transient
+	private Long grupoId;
 }

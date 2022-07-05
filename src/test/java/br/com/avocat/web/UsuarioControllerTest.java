@@ -3,6 +3,7 @@ package br.com.avocat.web;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import br.com.avocat.persistence.model.Grupo;
+import br.com.avocat.persistence.model.Role;
 import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.UsuarioDados;
 import br.com.avocat.util.ConstantesUtil;
@@ -73,21 +76,64 @@ public class UsuarioControllerTest {
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
 
+	@Test
+	public void criarRole_entao200() throws Exception {
+
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/roles");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+		
+		HttpEntity<Role> request = new HttpEntity<>(getRole(), headers);
+		ResponseEntity<Role> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				Role.class);
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+
+	@Test
+	public void criarGrupo_entao200() throws Exception {
+
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/grupos");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+		
+		HttpEntity<Grupo> request = new HttpEntity<>(getGrupo(), headers);
+		ResponseEntity<Grupo> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				Grupo.class);
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+	
 	private Usuario getUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setPassword("123");
-		usuario.setUsername("dev@dev.com.br");
+		usuario.setUsername(UUID.randomUUID() + "@dev.com.br");
 		return usuario;
 	}
 
 	private UsuarioDados getUsuarioPut() {
 		UsuarioDados usuarioDados = new UsuarioDados();
+		usuarioDados.setId(1L);
 		usuarioDados.setNome("Michael Sousa");
-		usuarioDados.setEmail("dev@dev.com.br");
+		usuarioDados.setEmail(UUID.randomUUID() + "@dev.com.br");
 		usuarioDados.setCelular("11999880099");
 		usuarioDados.setUsuarioId(1L);
 		usuarioDados.setUnidadeId(1L);
-		usuarioDados.setUsuario(null);
+		usuarioDados.setGrupoId(1L);
 		return usuarioDados;
+	}
+	
+	private Grupo getGrupo() {
+		Grupo grupo = new Grupo();
+		grupo.setDescricao("Advogado");
+		grupo.setRoleId(13L);
+		
+		return grupo;
+	}
+	
+	private Role getRole() {
+		Role role = new Role();
+		role.setDescricao("Administrador");		
+		return role;
 	}
 }
