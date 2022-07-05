@@ -8,7 +8,7 @@ import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.controller.generic.impl.ControllerGenericImpl;
 
 @RestController
-@RequestMapping(ConstantesUtil.PATH_PROCESSO_V1 + "/processos/tipos-valores")
+@RequestMapping(ConstantesUtil.PATH_PROCESSO_V1 + "/tipos-valores")
 public class TipoValorController extends ControllerGenericImpl<TipoValor> {
 
 }

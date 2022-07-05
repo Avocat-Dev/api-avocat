@@ -3,6 +3,7 @@ package br.com.avocat.web;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,7 +107,7 @@ public class UsuarioControllerTest {
 	private Usuario getUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setPassword("123");
-		usuario.setUsername("dev@dev.com.br");
+		usuario.setUsername(UUID.randomUUID() + "@dev.com.br");
 		return usuario;
 	}
 
@@ -114,7 +115,7 @@ public class UsuarioControllerTest {
 		UsuarioDados usuarioDados = new UsuarioDados();
 		usuarioDados.setId(1L);
 		usuarioDados.setNome("Michael Sousa");
-		usuarioDados.setEmail("dev@dev.com.br");
+		usuarioDados.setEmail(UUID.randomUUID() + "@dev.com.br");
 		usuarioDados.setCelular("11999880099");
 		usuarioDados.setUsuarioId(1L);
 		usuarioDados.setUnidadeId(1L);
