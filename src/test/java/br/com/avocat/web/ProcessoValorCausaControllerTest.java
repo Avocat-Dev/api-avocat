@@ -88,8 +88,8 @@ public class ProcessoValorCausaControllerTest {
 
 		ValorCausa valor = new ValorCausa();
 		
-		valor.setProcessoId(5L);
-		valor.setTipoValorId(14L);
+		valor.setProcessoId(1L);
+		valor.setTipoValorId(34L);
 		
 		valor.setMoeda(MoedaTypes.R$);
 		valor.setProbabilidade(ProbabilidadeTypes.PROVAVEL);

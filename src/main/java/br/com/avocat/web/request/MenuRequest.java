@@ -1,6 +1,8 @@
 package br.com.avocat.web.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LoginRequest implements Serializable {	
+public class MenuRequest implements Serializable {	
 	private static final long serialVersionUID = 1L;
-	
-    private String username;
-    private String password;           
+
+	private long roleId;
+	private List<Integer> menuIds = new ArrayList<>();
 }

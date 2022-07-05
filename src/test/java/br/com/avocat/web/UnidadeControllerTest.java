@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -91,9 +92,9 @@ public class UnidadeControllerTest {
 		
 		unidade.setEscritorioId(1L);
 		
-		unidade.setCnpj("00000000000001");
+		unidade.setCnpj(UUID.randomUUID() + "");
 		unidade.setCodigoUnidade("Teste Dev");
-		unidade.setEmail("unidade1@teste.com.br");
+		unidade.setEmail(UUID.randomUUID() + "@teste.com.br");
 		unidade.setInscEstadual("12345678");
 		unidade.setLogoUnidade("url:logo");
 		unidade.setNomeUnidade("Teste Dev");
