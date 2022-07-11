@@ -12,7 +12,6 @@ import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.service.EscritorioService;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
-import br.com.avocat.web.response.EscritorioResponse;
 
 @RestController
 @RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios")
@@ -22,13 +21,18 @@ public class EscritorioController {
 	private EscritorioService escritorioService;
 	
 	@PostMapping
-	public ResponseEntity<EscritorioResponse> save(@RequestBody Escritorio data) {
-		var result = escritorioService.save(data);		
-		return ControllerUtil.resolve(result);
+	public ResponseEntity<?> save(@RequestBody Escritorio data) {
+		try {
+			var result = escritorioService.save(data);		
+			return ControllerUtil.resolve(result);
+			
+		} catch (Exception e) {
+			return ControllerUtil.resolveBadRequest(e);
+		}
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EscritorioResponse> get(Long id) {
+	public ResponseEntity<?> get(Long id) {
 		var result = escritorioService.get(id);
 		
 		if(result.isEmpty())
