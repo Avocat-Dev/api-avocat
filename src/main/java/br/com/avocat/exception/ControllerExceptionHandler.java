@@ -13,32 +13,21 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-	static final Logger LOGGER = LogManager.getLogger();
+	static final Logger LOGGER = LogManager.getLogger(ControllerExceptionHandler.class);
 	
-	/**
-	 * @param ex Exception customized captured.
-	 * @param request
-	 * @return Object ErrorMensage with details.
-	 */
-	@ExceptionHandler(RegraNegocioException.class)
-	public ResponseEntity<ErrorMensage> resourceNotFoundException(RegraNegocioException ex, WebRequest request) {
+	@ExceptionHandler(AvocatException.class)
+	public ResponseEntity<ErrorMensage> avocatException(AvocatException ex) {
 		ErrorMensage msg = new ErrorMensage();
 		
 		LOGGER.warn(msg.getUuid(), ex);
 		
-		msg.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		msg.setStatusCode(HttpStatus.BAD_REQUEST.value());
 		msg.setData(LocalDateTime.now());
-		msg.setMensagem(ex.getMessage());
-		msg.setDescricao(request.getDescription(false));
+		msg.setMensagem(ex.getMessage());		
 
-		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.BAD_REQUEST);
 	}
 
-	/**
-	 * @param ex Exception global captured.
-	 * @param request
-	 * @return Object ErrorMensage with details.
-	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(Exception ex, WebRequest request) {
 		ErrorMensage msg = new ErrorMensage();
@@ -53,16 +42,9 @@ public class ControllerExceptionHandler {
 		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	/**
-	 * @param ex NotFoundException global captured.
-	 * @param request
-	 * @return Object ErrorMensage with details.
-	 */
 	@ExceptionHandler(RecursoNaoEncontradoException.class)
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(RecursoNaoEncontradoException ex, WebRequest request) {
 		ErrorMensage msg = new ErrorMensage();
-
-		LOGGER.warn(msg.getUuid(), ex);
 		
 		msg.setStatusCode(HttpStatus.NOT_FOUND.value());
 		msg.setData(LocalDateTime.now());
