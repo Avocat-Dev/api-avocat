@@ -3,6 +3,7 @@ package br.com.avocat.web;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ import br.com.avocat.persistence.model.Usuario;
 import br.com.avocat.persistence.model.UsuarioDados;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.web.request.LoginRequest;
+import br.com.avocat.web.request.MenuRequest;
 import br.com.avocat.web.response.TokenResponse;
 import br.com.avocat.web.response.UsuarioDadosResponse;
 import br.com.avocat.web.response.UsuarioResponse;
@@ -104,6 +106,27 @@ public class UsuarioControllerTest {
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
 	
+	@Test
+	public void criarMenu_entao200() throws Exception {
+
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/menus");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+		
+		HttpEntity<MenuRequest> request = new HttpEntity<>(getMenu(), headers);
+		ResponseEntity<Void> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				Void.class);
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+	
+	private MenuRequest getMenu() {
+		MenuRequest request = new MenuRequest();
+		request.setRoleId(36L);
+		request.setMenuIds(List.of(202));
+		return request;
+	}
+
 	private Usuario getUsuario() {
 		Usuario usuario = new Usuario();
 		usuario.setPassword("123");

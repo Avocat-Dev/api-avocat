@@ -10,30 +10,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.service.EscritorioService;
+import br.com.avocat.service.MenuService;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
+import br.com.avocat.web.request.MenuRequest;
+import br.com.avocat.web.response.EscritorioResponse;
 
 @RestController
-@RequestMapping(ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios")
-public class EscritorioController {
+@RequestMapping(ConstantesUtil.PATH_USUARIO_V1 + "/menus")
+public class MenuController {
 	
 	@Autowired
-	private EscritorioService escritorioService;
+	private MenuService menuService;
 	
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody Escritorio data) {
-		try {
-			var result = escritorioService.save(data);		
-			return ControllerUtil.resolve(result);
-			
-		} catch (Exception e) {
-			return ControllerUtil.resolveBadRequest(e);
-		}
+	public ResponseEntity<Void> save(@RequestBody MenuRequest request) {
+		menuService.criarMenu(request);		
+		return ControllerUtil.resolveVoid();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> get(Long id) {
-		var result = escritorioService.get(id);
+	public ResponseEntity<EscritorioResponse> get(Long id) {
+		var result = menuService.get(id);
 		
 		if(result.isEmpty())
 			return ControllerUtil.resolveNotFound();

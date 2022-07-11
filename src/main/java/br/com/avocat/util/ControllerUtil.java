@@ -23,4 +23,12 @@ public class ControllerUtil {
 	public static <T> ResponseEntity<List<T>> resolveAll(List<T> result) {
 		return ResponseEntity.ok().body(result);		
 	}
+
+	public static ResponseEntity<Void> resolveVoid() {
+		return ResponseEntity.ok().build();
+	}
+
+	public static ResponseEntity<?> resolveBadRequest(Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage());
+	}
 }
