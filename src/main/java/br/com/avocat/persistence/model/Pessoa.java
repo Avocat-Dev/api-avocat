@@ -37,18 +37,19 @@ public class Pessoa extends AbsctractAuditaEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa")
 	private Long id;
 
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false)
 	private String nome;
 
 	@Column(nullable = false, length = 20)
 	private String cpfCnpj;
 
-	@Column(length = 100)
+	@Column(nullable = false)
 	private String emailCobranca;
 
-	@Column(length = 1000)
+	@Column(columnDefinition = "text")
 	private String observacao;
 
+	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	private PessoaTypes tipoPessoa;
 
