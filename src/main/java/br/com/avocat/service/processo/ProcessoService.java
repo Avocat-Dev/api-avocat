@@ -109,16 +109,6 @@ public class ProcessoService {
 		}
 	}
 
-	public Optional<ProcessoResponse> get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Optional<List<ProcessoResponse>> all() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Transactional
 	public Optional<ValorCausaResponse> salvarValorCausa(ValorCausa data) {
 

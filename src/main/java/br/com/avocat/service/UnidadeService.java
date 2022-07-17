@@ -1,5 +1,6 @@
 package br.com.avocat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,40 +28,27 @@ public class UnidadeService {
 
 	@Transactional
 	public Optional<UnidadeResponse> save(Unidade unidade) {
-
 		validar(unidade);
 		
 		var escritorio = escritorioRepository.findById(unidade.getEscritorioId());
 		
 		if(escritorio.isPresent()) {
-			
 			unidade.setEscritorio(escritorio.get());
-			
 			var result = unidadeRepository.save(unidade);
-			
 			return Optional.of(new UnidadeResponse(result));
-			
 		} else {
-			
 			return Optional.empty();
 		}
 	}
 
 	public Optional<UnidadeResponse> get(Long id) {
-		
 		var result = unidadeRepository.findById(id);
-
-		if (result.isPresent())
-			return Optional.ofNullable(new UnidadeResponse(result.get()));
-		else
-			return Optional.empty();
+		return result.map(UnidadeResponse::new);
 	}
 
 	public List<UnidadeResponse> all() {
-		
 		var result = unidadeRepository.findAll();
-		
-		return result.stream().map(UnidadeResponse::new).collect(Collectors.toList());
+		return result.stream().map(UnidadeResponse::new).toList();
 	}
 
 	private void validar(Unidade unidade) {
@@ -73,7 +61,7 @@ public class UnidadeService {
 			new AvocatException("E-mail da unidade não deve ser nulo ou vazio.")
 		);
 		
-		ObjetoUtil.verifica(unidade.getEscritorio()).orElseThrow(() -> 
+		ObjetoUtil.verifica(unidade.getEscritorioId()).orElseThrow(() ->
 			new AvocatException("Unidade deve ter um escritório.")
 		);
 		

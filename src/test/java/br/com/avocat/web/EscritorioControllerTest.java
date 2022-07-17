@@ -6,6 +6,8 @@ import static org.mockito.BDDMockito.given;
 import java.net.URI;
 import java.util.Optional;
 
+import br.com.avocat.persistence.model.UsuarioDados;
+import br.com.avocat.web.response.UsuarioDadosResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
 import br.com.avocat.persistence.model.Escritorio;
@@ -30,7 +33,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class EscritorioControllerTest {
+class EscritorioControllerTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -68,7 +71,7 @@ public class EscritorioControllerTest {
 	}
 
 	@Test
-	public void cadastrarEscritorio_entao200() throws Exception {
+	void cadastrarEscritorio_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios");
 
@@ -88,14 +91,17 @@ public class EscritorioControllerTest {
 	}
 	
 	@Test
-	public void buscarEscritorioPorId_entao200() throws Exception {
+	void buscarEscritorioPorId_entao200() throws Exception {
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/escritorios/1");
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
 
-		ResponseEntity<EscritorioResponse> result = this.restTemplate.getForEntity(uri, EscritorioResponse.class);
-		
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<EscritorioResponse> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, EscritorioResponse.class);
+
 		assertEquals(result.getStatusCodeValue(), 200);
 		assertEquals(result.getBody().getId(), 1L);
 	}

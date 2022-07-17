@@ -32,21 +32,6 @@ public class ProcessoController {
 		return ControllerUtil.resolve(result);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ProcessoResponse> get(@PathVariable("id") final Long id) {
-		var result = processoService.get(id);
-		if (result.isEmpty())
-			return ControllerUtil.resolveNotFound();
-
-		return ControllerUtil.resolve(result);
-	}
-
-	@GetMapping("/all")
-	public ResponseEntity<List<ProcessoResponse>> all() {
-		var result = processoService.all();
-		return ControllerUtil.resolveAll(result);
-	}
-
 	@PostMapping("/valor-causa")
 	public ResponseEntity<ValorCausaResponse> salvarValorCausa(@RequestBody ValorCausa data) {
 		var result = processoService.salvarValorCausa(data);

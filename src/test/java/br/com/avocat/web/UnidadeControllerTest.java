@@ -1,12 +1,17 @@
 package br.com.avocat.web;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Optional;
-import java.util.UUID;
-
+import br.com.avocat.persistence.model.Unidade;
+import br.com.avocat.persistence.model.Usuario;
+import br.com.avocat.persistence.repository.UsuarioRepository;
+import br.com.avocat.util.ConstantesUtil;
+import br.com.avocat.web.request.LoginRequest;
+import br.com.avocat.web.response.EscritorioResponse;
+import br.com.avocat.web.response.UnidadeResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,26 +19,29 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-import br.com.avocat.persistence.model.Unidade;
-import br.com.avocat.persistence.model.Usuario;
-import br.com.avocat.persistence.repository.UsuarioRepository;
-import br.com.avocat.util.ConstantesUtil;
-import br.com.avocat.web.request.LoginRequest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class UnidadeControllerTest {
-	
+class UnidadeControllerTest {
+
+	@Autowired
+	private TestRestTemplate restTemplate;
+
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -73,7 +81,7 @@ public class UnidadeControllerTest {
 	}
 
 	@Test
-	public void criarUnidade_entao200() throws Exception {
+	void criarUnidade_entao200() throws Exception {
 		//@formatter:off
 		this.mockMvc
 			.perform(
@@ -85,6 +93,38 @@ public class UnidadeControllerTest {
 					.andExpect(status().isOk());
 		//@formatter:on
 	}
+
+	@Test
+	void buscarUnidadePorId_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/unidades/1");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<EscritorioResponse> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, EscritorioResponse.class);
+
+		assertEquals(result.getStatusCodeValue(), 200);
+		assertEquals(result.getBody().getId(), 1L);
+	}
+
+	@Test
+	void buscarUnidadeTodos_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/unidades/all");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<List<UnidadeResponse>> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+				});
+
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
 	
 	private Unidade gerarUnidade() {
 
@@ -92,12 +132,13 @@ public class UnidadeControllerTest {
 		
 		unidade.setEscritorioId(1L);
 		
-		unidade.setCnpj(UUID.randomUUID() + "");
+		unidade.setCnpj("11998951000118");
 		unidade.setCodigoUnidade("Teste Dev");
 		unidade.setEmail(UUID.randomUUID() + "@teste.com.br");
 		unidade.setInscEstadual("12345678");
 		unidade.setLogoUnidade("url:logo");
 		unidade.setNomeUnidade("Teste Dev");
+		unidade.setRazaoSocial("Teste Dev");
 		unidade.setTel1("11977860977");
 		unidade.setTel2("11977860977");
 		unidade.setWeb("www.web.com.br");
