@@ -29,19 +29,4 @@ public class AndamentoController {
 		var result = andamentoService.save(data);
 		return ControllerUtil.resolve(result);
 	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<AndamentoResponse> get(@PathVariable("id") final Long id) {
-		var result = andamentoService.get(id);
-		if (result.isEmpty())
-			return ControllerUtil.resolveNotFound();
-
-		return ControllerUtil.resolve(result);
-	}
-
-	@GetMapping("/all")
-	public ResponseEntity<List<AndamentoResponse>> all() {
-		var result = andamentoService.all();
-		return ControllerUtil.resolveAll(result);
-	}
 }

@@ -30,7 +30,7 @@ import br.com.avocat.web.response.UsuarioDadosResponse;
 import br.com.avocat.web.response.UsuarioResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class UsuarioControllerTest {
+class UsuarioControllerTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -41,7 +41,7 @@ public class UsuarioControllerTest {
 	private String token;
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 
 		//@formatter:off
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_AUTH_V1 + "/token");
@@ -54,7 +54,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void criarNovoUsuario_entao200() throws Exception {
+	void criarNovoUsuario_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/conta");
 
@@ -65,7 +65,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void atualizarUsuarioDados_entao200() throws Exception {
+	void atualizarUsuarioDados_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1);
 
@@ -79,7 +79,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void criarRole_entao200() throws Exception {
+	void criarRole_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/roles");
 
@@ -93,7 +93,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void criarGrupo_entao200() throws Exception {
+	void criarGrupo_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/grupos");
 
@@ -107,7 +107,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	public void criarMenu_entao200() throws Exception {
+	void criarMenu_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_USUARIO_V1 + "/menus");
 

@@ -3,12 +3,17 @@ package br.com.avocat.util;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class ControllerUtil {
 	
-	public static <T> ResponseEntity<T> resolveNotFound() {		
-		return ResponseEntity.notFound().build();		
+	private ControllerUtil() {
+	    throw new IllegalStateException("Utility class");
+	  }
+	
+	public static <T> ResponseEntity<T> resolveNotFound() {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();		
 	}
 
 	public static <T> ResponseEntity<T> resolve(Optional<T> result) {
@@ -28,7 +33,7 @@ public class ControllerUtil {
 		return ResponseEntity.ok().build();
 	}
 
-	public static ResponseEntity<?> resolveBadRequest(Exception e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
+	public static ResponseEntity<String> resolveOk(String msg) {
+		return ResponseEntity.ok().body(msg);
 	}
 }

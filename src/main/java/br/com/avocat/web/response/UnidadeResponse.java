@@ -1,5 +1,6 @@
 package br.com.avocat.web.response;
 
+import br.com.avocat.persistence.model.Escritorio;
 import br.com.avocat.persistence.model.Unidade;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class UnidadeResponse {
 	private String nomeUnidade;
 	private String codigoUnidade;
 	private String logoUnidade;
+
+	private Escritorio escritorio;
 	
 	public UnidadeResponse(Unidade unidade) {		
 		this.id = unidade.getId();
@@ -33,5 +36,6 @@ public class UnidadeResponse {
 		this.nomeUnidade = unidade.getNomeUnidade();
 		this.codigoUnidade = unidade.getCodigoUnidade();
 		this.logoUnidade = unidade.getLogoUnidade();
+		this.escritorio = unidade.getEscritorio();
 	}	
 }

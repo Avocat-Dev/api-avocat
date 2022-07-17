@@ -47,14 +47,4 @@ public class AndamentoService {
 			throw new RuntimeException(e);
 		}
 	}
-
-	public Optional<AndamentoResponse> get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Optional<List<AndamentoResponse>> all() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -1,11 +1,16 @@
 package br.com.avocat.web;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
+import br.com.avocat.web.response.PessoaResponse;
+import br.com.avocat.web.response.PessoaResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +18,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +39,10 @@ import io.restassured.response.Response;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class PessoaControllerTest {
+class PessoaControllerTest {
+
+	@Autowired
+	private TestRestTemplate restTemplate;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -73,7 +83,7 @@ public class PessoaControllerTest {
 	}
 
 	@Test
-	public void criarPessoa_entao200() throws Exception {
+	void criarPessoa_entao200() throws Exception {
 		//@formatter:off
 		this.mockMvc
 			.perform(
@@ -84,6 +94,38 @@ public class PessoaControllerTest {
 					)
 					.andExpect(status().isOk());
 		//@formatter:on
+	}
+
+	@Test
+	void buscarPessoaPorId_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/pessoas/1");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<PessoaResponse> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, PessoaResponse.class);
+
+		assertEquals(result.getStatusCodeValue(), 200);
+		assertEquals(result.getBody().getId(), 1L);
+	}
+
+	@Test
+	void buscarPessoaTodos_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/pessoas/all");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<List<PessoaResponse>> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+				});
+
+		assertEquals(result.getStatusCodeValue(), 200);
 	}
 
 	private Pessoa gerarPessoa() {

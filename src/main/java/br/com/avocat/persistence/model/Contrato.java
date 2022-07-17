@@ -38,15 +38,24 @@ public class Contrato extends AbsctractAuditaEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contrato")
 	private Long id;
 
+	@Column(nullable = false)
 	private String nomeContrato;
+	
 	private LocalDate dataEncerramento;
+	
 	private LocalDate dataReajuste;
+	
+	@Column(columnDefinition = "text")
 	private String anotacaoNota;
+	
+	@Column(columnDefinition = "text")
 	private String anotacaoGeral;
+	
+	@Column(columnDefinition = "text")
 	private String anotacaoFaturamento;
 
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "modalidade_id")
+	@Column(name = "modalidade_id", nullable = false)
 	private ContratoTypes modalidadeId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
