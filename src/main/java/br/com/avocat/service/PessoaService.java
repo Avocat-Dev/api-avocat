@@ -1,20 +1,17 @@
 package br.com.avocat.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.avocat.exception.AvocatException;
 import br.com.avocat.persistence.model.Pessoa;
 import br.com.avocat.persistence.repository.PessoaRepository;
 import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.util.ObjetoUtil;
 import br.com.avocat.web.response.PessoaResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -27,7 +24,6 @@ public class PessoaService {
 
 	@Transactional
 	public Optional<PessoaResponse> save(Pessoa pessoa) {
-
 		validar(pessoa);
 		
 		var unidade = unidadeRepository.findById(pessoa.getUnidadeId());
@@ -42,19 +38,13 @@ public class PessoaService {
 	}
 
 	public Optional<PessoaResponse> get(Long id) {
-		
 		var result = pessoaRepository.findById(id);
-
-		if (result.isPresent()) {
-			return Optional.ofNullable(new PessoaResponse(result.get()));
-		} else {
-			return Optional.empty();
-		}
+		return result.map(PessoaResponse::new);
 	}
 
 	public List<PessoaResponse> all() {
 		var result = pessoaRepository.findAll();
-		return result.stream().map(PessoaResponse::new).collect(Collectors.toList());
+		return result.stream().map(PessoaResponse::new).toList();
 	}
 
 	@Transactional
@@ -80,7 +70,7 @@ public class PessoaService {
 			new AvocatException("Tipo da pessoa não pode ser nulo o vazio.")
 		);
 		
-		ObjetoUtil.verifica(pessoa.getUnidade()).orElseThrow(() -> 
+		ObjetoUtil.verifica(pessoa.getUnidadeId()).orElseThrow(() ->
 			new AvocatException("A unidade da pessoa não pode ser nulo o vazio.")
 		);
 	}

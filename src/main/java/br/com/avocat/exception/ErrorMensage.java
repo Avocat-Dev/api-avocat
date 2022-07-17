@@ -14,9 +14,8 @@ public class ErrorMensage {
 	/**
 	 * UUID generated to identify exception launched in log. 
 	 */
-	private UUID uuid = UUID.randomUUID();
+	private UUID uuid;
 	private int statusCode;
 	private LocalDateTime data;
 	private String mensagem;
-	private String descricao;
 }

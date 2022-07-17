@@ -32,8 +32,8 @@ public class PessoaController {
             return ControllerUtil.resolve(result);
 
         } catch (Exception e) {
-            LOGGER.error("Erro ao salvar pessoa ", e);
-            throw new AvocatException(e.getMessage());
+            LOGGER.error("Erro ao salvar pessoa.", e);
+            throw new AvocatException(e);
         }
 
     }
@@ -50,7 +50,7 @@ public class PessoaController {
             return ControllerUtil.resolve(result);
 
         } catch (Exception e) {
-            LOGGER.error("Erro ao buscar pessoa ", e);
+            LOGGER.error("Erro ao buscar pessoa.", e);
             throw new AvocatException(e.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public class PessoaController {
             return ControllerUtil.resolveAll(result);
 
         } catch (Exception e) {
-            LOGGER.error("Erro ao listar pessoas ", e);
+            LOGGER.error("Erro ao listar pessoas.", e);
             throw new AvocatException(e.getMessage());
         }
     }
@@ -74,7 +74,7 @@ public class PessoaController {
         try {
             pessoaService.delete(id);
         } catch (Exception e) {
-            LOGGER.error("Erro ao deletar a pessoa id: " + id, e);
+            LOGGER.error("Erro ao deletar a pessoa.", e);
             throw new AvocatException(e.getMessage());
         }
 

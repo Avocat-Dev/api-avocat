@@ -1,6 +1,7 @@
 package br.com.avocat.exception;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,40 +18,50 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(AvocatException.class)
 	public ResponseEntity<ErrorMensage> avocatException(AvocatException ex) {
-		ErrorMensage msg = new ErrorMensage();
-		
-		LOGGER.warn(msg.getUuid(), ex);
-		
-		msg.setStatusCode(HttpStatus.BAD_REQUEST.value());
-		msg.setData(LocalDateTime.now());
-		msg.setMensagem(ex.getMessage());		
+		ErrorMensage error = new ErrorMensage();
 
-		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.BAD_REQUEST);
+		UUID uuid = gerarUUID(ex, error);
+
+		error.setUuid(uuid);
+		error.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		error.setData(LocalDateTime.now());
+		error.setMensagem(ex.getMessage());
+
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(Exception ex, WebRequest request) {
-		ErrorMensage msg = new ErrorMensage();
+		ErrorMensage error = new ErrorMensage();
 
-		LOGGER.warn(msg.getUuid(), ex);
-		
-		msg.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-		msg.setData(LocalDateTime.now());
-		msg.setMensagem(ex.getMessage());
-		msg.setDescricao(request.getDescription(false));
+		UUID uuid = gerarUUID(ex, error);
 
-		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		error.setUuid(uuid);
+		error.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		error.setData(LocalDateTime.now());
+		error.setMensagem(ex.getMessage());
+
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@ExceptionHandler(RecursoNaoEncontradoException.class)
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(RecursoNaoEncontradoException ex, WebRequest request) {
-		ErrorMensage msg = new ErrorMensage();
-		
-		msg.setStatusCode(HttpStatus.NOT_FOUND.value());
-		msg.setData(LocalDateTime.now());
-		msg.setMensagem(ex.getMessage());
-		msg.setDescricao(request.getDescription(false));
+		ErrorMensage error = new ErrorMensage();
 
-		return new ResponseEntity<ErrorMensage>(msg, HttpStatus.NOT_FOUND);
+		UUID uuid = gerarUUID(ex, error);
+
+		error.setUuid(uuid);
+		error.setStatusCode(HttpStatus.NOT_FOUND.value());
+		error.setData(LocalDateTime.now());
+		error.setMensagem(ex.getMessage());
+
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
+	private UUID gerarUUID(Exception ex, ErrorMensage error) {
+		var uuid = error.getUuid();
+
+		LOGGER.warn(uuid, ex);
+		return uuid;
 	}
 }
