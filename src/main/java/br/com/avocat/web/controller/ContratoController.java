@@ -73,7 +73,7 @@ public class ContratoController {
 		try {
 			contratoService.delete(id);
 		} catch (Exception e) {
-			LOGGER.error("Erro ao deletar a pessoa id: " + id, e);
+			LOGGER.error("Erro ao deletar a contrato", e);
 			throw new AvocatException(e.getMessage());
 		}
 

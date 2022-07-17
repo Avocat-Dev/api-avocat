@@ -2,6 +2,10 @@ package br.com.avocat.web.controller.processo;
 
 import java.util.List;
 
+import br.com.avocat.exception.AvocatException;
+import br.com.avocat.web.controller.ContratoController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +27,32 @@ import br.com.avocat.web.response.ValorCausaResponse;
 @RequestMapping(ConstantesUtil.PATH_PROCESSO_V1)
 public class ProcessoController {
 
-	@Autowired
-	private ProcessoService processoService;
+    private static final Logger LOGGER = LogManager.getLogger(ContratoController.class);
 
-	@PostMapping
-	public ResponseEntity<ProcessoResponse> save(@RequestBody Processo data) {
-		var result = processoService.save(data);
-		return ControllerUtil.resolve(result);
-	}
+    @Autowired
+    private ProcessoService processoService;
 
-	@PostMapping("/valor-causa")
-	public ResponseEntity<ValorCausaResponse> salvarValorCausa(@RequestBody ValorCausa data) {
-		var result = processoService.salvarValorCausa(data);
-		return ControllerUtil.resolve(result);
-	}
+    @PostMapping
+    public ResponseEntity<ProcessoResponse> save(@RequestBody Processo processo) {
+
+        try {
+            var result = processoService.save(processo);
+            return ControllerUtil.resolve(result);
+        } catch (Exception e) {
+            LOGGER.error("Erro ao deletar a contrato", e);
+            throw new AvocatException(e.getMessage());
+        }
+    }
+
+    @PostMapping("/valor-causa")
+    public ResponseEntity<ValorCausaResponse> salvarValorCausa(@RequestBody ValorCausa valorCausa) {
+
+        try {
+            var result = processoService.salvarValorCausa(valorCausa);
+            return ControllerUtil.resolve(result);
+        } catch (Exception e) {
+            LOGGER.error("Erro ao deletar a contrato", e);
+            throw new AvocatException(e.getMessage());
+        }
+    }
 }

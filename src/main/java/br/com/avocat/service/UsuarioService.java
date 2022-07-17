@@ -39,47 +39,35 @@ public class UsuarioService {
 
 	@Transactional
 	public Optional<UsuarioResponse> novaConta(Usuario usuario) {
-
 		validarUsuario(usuario);
 		
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-
 		var result = usuarioRepository.save(usuario);
-
 		return Optional.of(new UsuarioResponse(result));
 	}
 
 	@Transactional
 	public Optional<UsuarioDadosResponse> update(UsuarioDados usuarioDados) {
-		
 			validarUsuarioDados(usuarioDados);
 		
 			var resultUsuarioDados = usuarioDadosRepository.findById(usuarioDados.getId());
-		
 			var usuario = usuarioRepository.findById(usuarioDados.getUsuarioId());
-			
 			var unidade = unidadeRepository.findById(usuarioDados.getUnidadeId());
-			
 			var grupo = grupoRepository.findById(usuarioDados.getGrupoId());
 
 			UsuarioDados result = null;
 
 			if (resultUsuarioDados.isEmpty()) {
-
 				if(unidade.isPresent() && grupo.isPresent() && usuario.isPresent()) {
-					
 					usuarioDados.setUnidade(unidade.get());
 					usuarioDados.setUsuario(usuario.get());
 					usuarioDados.setGrupo(grupo.get());
 					
 					result = usuarioDadosRepository.save(usuarioDados);
-					
 				} else {
 					throw new AvocatException("Erro ao salvar UsuarioDados ID: " + usuarioDados.getUsuarioId());
 				}
-
 			} else {
-
 				if(unidade.isPresent() && grupo.isPresent()) {
 
 					resultUsuarioDados.get().setNome(usuarioDados.getNome());
@@ -89,7 +77,6 @@ public class UsuarioService {
 					resultUsuarioDados.get().setGrupo(grupo.get());
 	
 					result = usuarioDadosRepository.save(resultUsuarioDados.get());
-					
 				} else {
 					throw new AvocatException("Erro ao salvar UsuarioDados ID: " + usuarioDados.getUsuarioId());
 				}
@@ -99,6 +86,7 @@ public class UsuarioService {
 	}
 	
 	private void validarUsuarioDados(UsuarioDados usuarioDados) {
+
 		ObjetoUtil.verifica(usuarioDados.getUnidadeId()).orElseThrow(() ->
 			new AvocatException("UnidadeId não pode ser nulo o vazio")
 		);

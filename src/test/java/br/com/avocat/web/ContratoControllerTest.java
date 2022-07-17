@@ -1,11 +1,16 @@
 package br.com.avocat.web;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
+import br.com.avocat.web.response.ContratoResponse;
+import br.com.avocat.web.response.ContratoResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +18,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,8 +39,11 @@ import io.restassured.response.Response;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class ContratoControllerTest {
+class ContratoControllerTest {
 
+	@Autowired
+	private TestRestTemplate restTemplate;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -73,7 +83,7 @@ public class ContratoControllerTest {
 	}
 
 	@Test
-	public void criarContrato_entao200() throws Exception {
+	void criarContrato_entao200() throws Exception {
 		//@formatter:off
 		this.mockMvc
 			.perform(
@@ -86,6 +96,38 @@ public class ContratoControllerTest {
 		//@formatter:on
 	}
 
+	@Test
+	void buscarContratoPorId_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/contratos/1");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<ContratoResponse> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, ContratoResponse.class);
+
+		assertEquals(result.getStatusCodeValue(), 200);
+		assertEquals(result.getBody().getId(), 1L);
+	}
+
+	@Test
+	void buscarContratoTodos_entao200() throws Exception {
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_ADMINISTRATIVO_V1 + "/contratos/all");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+
+		ResponseEntity<List<ContratoResponse>> result = this.restTemplate
+				.exchange(uri, HttpMethod.GET, request, new ParameterizedTypeReference<>() {
+				});
+
+		assertEquals(result.getStatusCodeValue(), 200);
+	}
+	
 	private Contrato gerarContrato() {
 
 		Contrato contrato = new Contrato();

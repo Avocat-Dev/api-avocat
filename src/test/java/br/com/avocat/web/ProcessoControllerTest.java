@@ -31,7 +31,7 @@ import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.TokenResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class ProcessoControllerTest {
+class ProcessoControllerTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -55,7 +55,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test	
-	public void cadastrarProcesso_entao200() throws Exception {
+	void cadastrarProcesso_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1);
 
@@ -101,7 +101,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test
-	public void criarArea_entao200() throws Exception {
+	void criarArea_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/areas");
 
@@ -114,7 +114,7 @@ public class ProcessoControllerTest {
 	}
 	
 	@Test
-	public void criarTipoAcao_entao200() throws Exception {
+	void criarTipoAcao_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/tipos-acoes");
 
@@ -127,7 +127,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test
-	public void criarFaseProcessual_entao200() throws Exception {
+	void criarFaseProcessual_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/fases-processuais");
 
@@ -140,7 +140,7 @@ public class ProcessoControllerTest {
 	}
 	
 	@Test
-	public void criarRito_entao200() throws Exception {
+	void criarRito_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/ritos");
 
@@ -153,7 +153,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test
-	public void criarComarca_entao200() throws Exception {
+	void criarComarca_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/comarcas");
 
@@ -167,7 +167,7 @@ public class ProcessoControllerTest {
 	
 
 	@Test
-	public void criarForo_entao200() throws Exception {
+	void criarForo_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/foros");
 
@@ -180,7 +180,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test
-	public void criarVara_entao200() throws Exception {
+	void criarVara_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/varas");
 
@@ -193,7 +193,7 @@ public class ProcessoControllerTest {
 	}
 
 	@Test
-	public void criarPapel_entao200() throws Exception {
+	void criarPapel_entao200() throws Exception {
 
 		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/papeis");
 

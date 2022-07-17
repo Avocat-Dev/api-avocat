@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorMensage> avocatException(AvocatException ex) {
 		ErrorMensage error = new ErrorMensage();
 
-		UUID uuid = gerarUUID(ex, error);
+		UUID uuid = gerarUUID(ex);
 
 		error.setUuid(uuid);
 		error.setStatusCode(HttpStatus.BAD_REQUEST.value());
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(Exception ex, WebRequest request) {
 		ErrorMensage error = new ErrorMensage();
 
-		UUID uuid = gerarUUID(ex, error);
+		UUID uuid = gerarUUID(ex);
 
 		error.setUuid(uuid);
 		error.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorMensage> globalExceptionHandler(RecursoNaoEncontradoException ex, WebRequest request) {
 		ErrorMensage error = new ErrorMensage();
 
-		UUID uuid = gerarUUID(ex, error);
+		UUID uuid = gerarUUID(ex);
 
 		error.setUuid(uuid);
 		error.setStatusCode(HttpStatus.NOT_FOUND.value());
@@ -58,8 +58,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-	private UUID gerarUUID(Exception ex, ErrorMensage error) {
-		var uuid = error.getUuid();
+	private UUID gerarUUID(Exception ex) {
+		var uuid = UUID.randomUUID();
 
 		LOGGER.warn(uuid, ex);
 		return uuid;
