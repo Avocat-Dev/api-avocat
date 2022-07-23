@@ -1,9 +1,9 @@
 package br.com.avocat.web;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.net.URI;
-
+import br.com.avocat.persistence.model.processo.*;
+import br.com.avocat.util.ConstantesUtil;
+import br.com.avocat.web.request.LoginRequest;
+import br.com.avocat.web.response.TokenResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import br.com.avocat.persistence.model.processo.Area;
-import br.com.avocat.persistence.model.processo.Comarca;
-import br.com.avocat.persistence.model.processo.FaseProcessual;
-import br.com.avocat.persistence.model.processo.Foro;
-import br.com.avocat.persistence.model.processo.Papel;
-import br.com.avocat.persistence.model.processo.Processo;
-import br.com.avocat.persistence.model.processo.Rito;
-import br.com.avocat.persistence.model.processo.TipoAcao;
-import br.com.avocat.persistence.model.processo.Vara;
-import br.com.avocat.util.ConstantesUtil;
-import br.com.avocat.web.request.LoginRequest;
-import br.com.avocat.web.response.ProcessoResponse;
-import br.com.avocat.web.response.TokenResponse;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ProcessoControllerTest {
@@ -63,9 +54,24 @@ class ProcessoControllerTest {
 		headers.set("Authorization", "Bearer " + token);
 
 		HttpEntity<Processo> request = new HttpEntity<>(getProcesso(), headers);
-		ResponseEntity<Object> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+		ResponseEntity<Object> response = this.restTemplate.exchange(uri, HttpMethod.POST, request,
 				Object.class);
-		assertEquals(result.getStatusCodeValue(), 200);
+		assertEquals(response.getStatusCodeValue(), 200);
+	}
+
+	@Test
+	void buscarTodosProcessos_entao200() throws Exception {
+
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/all");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = this.restTemplate.exchange(uri, HttpMethod.GET, request,
+				Object.class);
+
+		assertEquals(response.getStatusCodeValue(), 200);
 	}
 
 	private Processo getProcesso() {
