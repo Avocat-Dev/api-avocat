@@ -8,12 +8,14 @@ import br.com.avocat.persistence.repository.UnidadeRepository;
 import br.com.avocat.persistence.repository.processo.*;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ObjetoUtil;
+import br.com.avocat.web.response.ProcessoAllResponse;
 import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.ValorCausaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -155,5 +157,10 @@ public class ProcessoService {
 
         if(!erros.isEmpty())
             throw new AvocatException(erros);
+    }
+
+    public List<ProcessoAllResponse> all() {
+        var result = processoRepository.findAll();
+        return result.stream().map(ProcessoAllResponse::new).toList();
     }
 }

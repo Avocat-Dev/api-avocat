@@ -7,16 +7,17 @@ import br.com.avocat.service.processo.ProcessoService;
 import br.com.avocat.util.ConstantesUtil;
 import br.com.avocat.util.ControllerUtil;
 import br.com.avocat.web.controller.ContratoController;
+import br.com.avocat.web.response.ContratoResponse;
+import br.com.avocat.web.response.ProcessoAllResponse;
 import br.com.avocat.web.response.ProcessoResponse;
 import br.com.avocat.web.response.ValorCausaResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(ConstantesUtil.PATH_PROCESSO_V1)
@@ -35,6 +36,19 @@ public class ProcessoController {
             return ControllerUtil.resolve(result);
         } catch (Exception e) {
             LOGGER.error("Erro ao deletar a contrato", e);
+            throw new AvocatException(e.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ProcessoAllResponse>> all() {
+
+        try {
+            var result = processoService.all();
+            return ControllerUtil.resolveAll(result);
+
+        } catch (Exception e) {
+            LOGGER.error("Erro ao listar os contratos ", e);
             throw new AvocatException(e.getMessage());
         }
     }
