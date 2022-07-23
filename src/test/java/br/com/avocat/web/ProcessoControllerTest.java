@@ -63,8 +63,8 @@ class ProcessoControllerTest {
 		headers.set("Authorization", "Bearer " + token);
 
 		HttpEntity<Processo> request = new HttpEntity<>(getProcesso(), headers);
-		ResponseEntity<ProcessoResponse> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
-				ProcessoResponse.class);
+		ResponseEntity<Object> result = this.restTemplate.exchange(uri, HttpMethod.POST, request,
+				Object.class);
 		assertEquals(result.getStatusCodeValue(), 200);
 	}
 
