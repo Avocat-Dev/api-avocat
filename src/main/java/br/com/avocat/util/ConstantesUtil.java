@@ -11,5 +11,7 @@ public class ConstantesUtil {
 	public static final String PATH_PROCESSO_V1 = "/api/v1/processos";	
 	public static final String PATH_ADMINISTRATIVO_V1 = "/api/v1/administrativos";	
 	public static final String PATH_USUARIO_V1 = "/api/v1/usuarios";
-	public static final String PATH_AUTH_V1 = "/api/v1/auth";	
+	public static final String PATH_AUTH_V1 = "/api/v1/auth";
+
+	public static final String SEPARADOR_ERROS = "###";//usado na quebra split para retorno no Objeto ErrorMensage.
 }
