@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -21,5 +23,13 @@ public class ErrorMensage {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private LocalDateTime data;
 
-	private String mensagem;
+	private String erro;
+	private List<String> erros = new ArrayList<>();
+
+	public static ErrorMensage newInstance() {
+		ErrorMensage errorMensage = new ErrorMensage();
+		errorMensage.setUuid(UUID.randomUUID());
+		errorMensage.setData(LocalDateTime.now());
+		return errorMensage;
+	}
 }
