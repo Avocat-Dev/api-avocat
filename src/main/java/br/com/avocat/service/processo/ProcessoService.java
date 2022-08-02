@@ -163,4 +163,9 @@ public class ProcessoService {
         var result = processoRepository.findAll();
         return result.stream().map(ProcessoAllResponse::new).toList();
     }
+
+    public Optional<ProcessoResponse> get(Long id) {
+        var result = processoRepository.findById(id);
+        return result.map(ProcessoResponse::new);
+    }
 }

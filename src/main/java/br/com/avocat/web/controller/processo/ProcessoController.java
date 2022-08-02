@@ -53,6 +53,23 @@ public class ProcessoController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProcessoResponse> get(@PathVariable("id") Long id) {
+
+        try {
+            var result = processoService.get(id);
+
+            if (result.isEmpty())
+                return ControllerUtil.resolveNotFound();
+
+            return ControllerUtil.resolve(result);
+
+        } catch (Exception e) {
+            LOGGER.error("Erro ao buscar o processo ", e);
+            throw new AvocatException(e.getMessage());
+        }
+    }
+
     @PostMapping("/valor-causa")
     public ResponseEntity<ValorCausaResponse> salvarValorCausa(@RequestBody ValorCausa valorCausa) {
 
