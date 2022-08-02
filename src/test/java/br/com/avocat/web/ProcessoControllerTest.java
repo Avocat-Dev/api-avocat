@@ -74,6 +74,21 @@ class ProcessoControllerTest {
 		assertEquals(response.getStatusCodeValue(), 200);
 	}
 
+	@Test
+	void buscarProcessoPorid_entao200() throws Exception {
+
+		URI uri = new URI(ConstantesUtil.AMB_LOCAL_HOST + port + ConstantesUtil.PATH_PROCESSO_V1 + "/1");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = this.restTemplate.exchange(uri, HttpMethod.GET, request,
+				Object.class);
+
+		assertEquals(response.getStatusCodeValue(), 200);
+	}
+
 	private Processo getProcesso() {
 
 		Processo processo = new Processo();
